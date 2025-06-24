@@ -2,9 +2,15 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/auth');
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-racing-black/95 backdrop-blur-sm border-b border-racing-red/20">
@@ -26,12 +32,11 @@ const Header = () => {
             <a href="#cursos" className="text-white hover:text-racing-red transition-colors font-inter">Cursos</a>
             <a href="#niveles" className="text-white hover:text-racing-red transition-colors font-inter">Niveles</a>
             <a href="#recursos" className="text-white hover:text-racing-red transition-colors font-inter">Recursos</a>
-            <a href="#progreso" className="text-white hover:text-racing-red transition-colors font-inter">Mi Progreso</a>
           </nav>
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button className="racing-button">
+            <Button className="racing-button" onClick={handleGetStarted}>
               Comenzar Ahora
             </Button>
           </div>
@@ -52,8 +57,7 @@ const Header = () => {
               <a href="#cursos" className="text-white hover:text-racing-red transition-colors font-inter">Cursos</a>
               <a href="#niveles" className="text-white hover:text-racing-red transition-colors font-inter">Niveles</a>
               <a href="#recursos" className="text-white hover:text-racing-red transition-colors font-inter">Recursos</a>
-              <a href="#progreso" className="text-white hover:text-racing-red transition-colors font-inter">Mi Progreso</a>
-              <Button className="racing-button mt-4 w-full">
+              <Button className="racing-button mt-4 w-full" onClick={handleGetStarted}>
                 Comenzar Ahora
               </Button>
             </nav>
