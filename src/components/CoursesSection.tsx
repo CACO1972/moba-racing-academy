@@ -1,0 +1,235 @@
+
+import { Book, Play, FileText, ExternalLink, Clock, Users } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+
+const courses = [
+  {
+    id: 'fundamentos',
+    title: 'Fundamentos del Karting',
+    description: 'Aprende los conceptos básicos de la conducción deportiva empezando por karting.',
+    level: 'Amateur',
+    levelColor: 'level-amateur',
+    duration: '45 min',
+    lessons: 8,
+    students: 1250,
+    topics: [
+      'Posición y ergonomía del piloto',
+      'Técnicas básicas de aceleración',
+      'Conceptos de frenado progresivo',
+      'Línea de carrera ideal'
+    ],
+    image: 'photo-1605810230434-7631ac76ec81',
+    resources: [
+      { type: 'video', title: 'Introducción al Karting', duration: '12 min' },
+      { type: 'infographic', title: 'Posición ideal del piloto' },
+      { type: 'exercise', title: 'Simulador de frenado básico' },
+      { type: 'pdf', title: 'Guía de seguridad en pista' }
+    ]
+  },
+  {
+    id: 'trail-braking',
+    title: 'Trail Braking Avanzado',
+    description: 'Domina la técnica más importante del automovilismo moderno.',
+    level: 'Profesional',
+    levelColor: 'level-professional',
+    duration: '90 min',
+    lessons: 12,
+    students: 890,
+    topics: [
+      'Teoría del trail braking',
+      'Modulación del pedal de freno',
+      'Transferencia de peso dinámica',
+      'Aplicación en diferentes curvas'
+    ],
+    image: 'photo-1518770660439-4636190af475',
+    resources: [
+      { type: 'video', title: 'Trail Braking Explicado', duration: '25 min' },
+      { type: 'infographic', title: 'Transferencia de peso' },
+      { type: 'exercise', title: 'Simulador de trail braking' },
+      { type: 'link', title: 'Análisis de F1 - Verstappen vs Hamilton' }
+    ]
+  },
+  {
+    id: 'telemetria',
+    title: 'Análisis de Telemetría',
+    description: 'Utiliza los datos para mejorar tu rendimiento en pista.',
+    level: 'Senior',
+    levelColor: 'level-senior',
+    duration: '120 min',
+    lessons: 15,
+    students: 420,
+    topics: [
+      'Lectura de datos de telemetría',
+      'Análisis de velocidades en curva',
+      'Optimización de trazadas',
+      'Comparación entre pilotos'
+    ],
+    image: 'photo-1461749280684-dccba630e2f6',
+    resources: [
+      { type: 'video', title: 'Introducción a la telemetría', duration: '30 min' },
+      { type: 'infographic', title: 'Dashboard de telemetría' },
+      { type: 'exercise', title: 'Análisis de vuelta completa' },
+      { type: 'pdf', title: 'Guía de software de telemetría' }
+    ]
+  },
+  {
+    id: 'setup',
+    title: 'Setup y Configuración',
+    description: 'Optimiza la configuración de tu vehículo para cada circuito.',
+    level: 'Profesional',
+    levelColor: 'level-professional',
+    duration: '75 min',
+    lessons: 10,
+    students: 650,
+    topics: [
+      'Fundamentos de suspensión',
+      'Configuración aerodinámica',
+      'Presiones y temperaturas de neumáticos',
+      'Ajustes específicos por circuito'
+    ],
+    image: 'photo-1487058792275-0ad4aaf24ca7',
+    resources: [
+      { type: 'video', title: 'Setup básico de karting', duration: '20 min' },
+      { type: 'infographic', title: 'Componentes de suspensión' },
+      { type: 'exercise', title: 'Calculadora de setup' },
+      { type: 'link', title: 'Base de datos de setups' }
+    ]
+  }
+];
+
+const getResourceIcon = (type: string) => {
+  switch (type) {
+    case 'video': return Play;
+    case 'infographic': return FileText;
+    case 'exercise': return Book;
+    case 'pdf': return FileText;
+    case 'link': return ExternalLink;
+    default: return Book;
+  }
+};
+
+const CoursesSection = () => {
+  return (
+    <section id="cursos" className="py-20 bg-racing-black">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center px-4 py-2 bg-racing-red/20 border border-racing-red/30 rounded-full mb-6">
+            <Book className="w-4 h-4 text-racing-red mr-2" />
+            <span className="text-racing-red font-orbitron font-semibold text-sm">
+              Cursos Disponibles
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-orbitron font-bold text-white mb-6">
+            Contenido
+            <span className="text-transparent bg-clip-text bg-racing-gradient"> Especializado</span>
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto font-inter">
+            Cada curso incluye videos explicativos, infografías interactivas, ejercicios prácticos y recursos externos cuidadosamente seleccionados.
+          </p>
+        </div>
+
+        {/* Courses Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+          {courses.map((course) => (
+            <Card key={course.id} className="racing-card overflow-hidden">
+              {/* Course Image */}
+              <div className="relative h-48 bg-gradient-to-br from-racing-red/20 to-racing-black overflow-hidden">
+                <img 
+                  src={`https://images.unsplash.com/${course.image}?auto=format&fit=crop&w=800&q=80`}
+                  alt={course.title}
+                  className="w-full h-full object-cover opacity-60"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-racing-black via-transparent to-transparent" />
+                <Badge className={`absolute top-4 left-4 level-badge ${course.levelColor}`}>
+                  {course.level}
+                </Badge>
+              </div>
+
+              <CardHeader className="pb-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <CardTitle className="text-xl font-orbitron font-bold text-white mb-2">
+                      {course.title}
+                    </CardTitle>
+                    <CardDescription className="text-gray-400 font-inter">
+                      {course.description}
+                    </CardDescription>
+                  </div>
+                </div>
+
+                {/* Course Stats */}
+                <div className="flex items-center space-x-6 text-sm text-gray-400 font-inter mt-4">
+                  <div className="flex items-center space-x-1">
+                    <Clock className="w-4 h-4" />
+                    <span>{course.duration}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Book className="w-4 h-4" />
+                    <span>{course.lessons} lecciones</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Users className="w-4 h-4" />
+                    <span>{course.students.toLocaleString()} estudiantes</span>
+                  </div>
+                </div>
+              </CardHeader>
+
+              <CardContent className="space-y-6">
+                {/* Topics */}
+                <div>
+                  <h4 className="font-orbitron font-semibold text-white text-sm mb-3">Temas principales:</h4>
+                  <ul className="space-y-1">
+                    {course.topics.map((topic, index) => (
+                      <li key={index} className="text-gray-300 font-inter text-sm flex items-center space-x-2">
+                        <div className="w-1.5 h-1.5 bg-racing-red rounded-full flex-shrink-0" />
+                        <span>{topic}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Resources */}
+                <div>
+                  <h4 className="font-orbitron font-semibold text-white text-sm mb-3">Recursos incluidos:</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {course.resources.map((resource, index) => {
+                      const Icon = getResourceIcon(resource.type);
+                      return (
+                        <div key={index} className="flex items-center space-x-2 text-gray-400 text-xs font-inter">
+                          <Icon className="w-3 h-3 text-racing-gold flex-shrink-0" />
+                          <span className="truncate">{resource.title}</span>
+                          {resource.duration && (
+                            <span className="text-gray-500">({resource.duration})</span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <Button className="w-full racing-button">
+                  Acceder al Curso
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="text-center mt-16">
+          <p className="text-gray-400 font-inter mb-6">
+            ¿Buscas un curso específico? Explora nuestro catálogo completo.
+          </p>
+          <Button variant="outline" className="border-racing-red/30 text-white hover:bg-racing-red/10 hover:border-racing-red">
+            Ver Todos los Cursos
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default CoursesSection;
