@@ -1,10 +1,12 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { User } from '@supabase/supabase-js';
 import { BookOpen, Trophy, Target, LogOut } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useCourses, useLessons } from '@/hooks/useCourses';
+import { useUserProgress, useCompleteLesson } from '@/hooks/useProgress';
 
 interface DashboardProps {
   user: User;
@@ -96,8 +98,8 @@ const Dashboard = ({ user }: DashboardProps) => {
 
           {/* Main Content */}
           <div className="lg:col-span-3">
-            {activeSection === 'cursos' && <CoursesContent />}
-            {activeSection === 'progreso' && <ProgressContent />}
+            {activeSection === 'cursos' && <CoursesContent user={user} />}
+            {activeSection === 'progreso' && <ProgressContent user={user} />}
             {activeSection === 'ejercicios' && <ExercisesContent />}
           </div>
         </div>
@@ -106,57 +108,125 @@ const Dashboard = ({ user }: DashboardProps) => {
   );
 };
 
-// Componentes de contenido
-const CoursesContent = () => (
-  <div className="space-y-6">
-    <h2 className="text-3xl font-orbitron font-bold text-white">Fundamentos del Karting</h2>
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="racing-card p-6">
-        <h3 className="text-xl font-orbitron font-semibold text-white mb-3">
-          Lección 1: Posición y Ergonomía
-        </h3>
-        <p className="text-gray-300 mb-4 font-inter">
-          Aprende la postura correcta para maximizar control y reducir fatiga.
-        </p>
-        <div className="flex justify-between items-center">
-          <span className="level-badge level-amateur">Amateur</span>
-          <Button className="racing-button">Comenzar</Button>
-        </div>
-      </div>
-      
-      <div className="racing-card p-6 opacity-50">
-        <h3 className="text-xl font-orbitron font-semibold text-white mb-3">
-          Lección 2: Técnicas de Aceleración
-        </h3>
-        <p className="text-gray-300 mb-4 font-inter">
-          Domina el control del acelerador para tracción óptima.
-        </p>
-        <div className="flex justify-between items-center">
-          <span className="level-badge level-amateur">Amateur</span>
-          <Button disabled className="racing-button">Bloqueado</Button>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+// Componente de cursos con datos reales
+const CoursesContent = ({ user }: { user: User }) => {
+  const { data: courses, isLoading } = useCourses();
+  const { data: progress } = useUserProgress(user);
+  const completeLesson = useCompleteLesson();
 
-const ProgressContent = () => (
-  <div className="racing-card p-6">
-    <h2 className="text-3xl font-orbitron font-bold text-white mb-6">Mi Progreso</h2>
+  if (isLoading) {
+    return <div className="text-white">Cargando cursos...</div>;
+  }
+
+  const fundamentalsCourse = courses?.find(course => course.title === 'Fundamentos del Karting');
+  
+  return (
+    <div className="space-y-6">
+      <h2 className="text-3xl font-orbitron font-bold text-white">Mis Cursos</h2>
+      
+      {fundamentalsCourse && (
+        <LessonsSection 
+          course={fundamentalsCourse} 
+          user={user} 
+          progress={progress || []}
+          onCompleteLesson={completeLesson.mutate}
+        />
+      )}
+    </div>
+  );
+};
+
+const LessonsSection = ({ 
+  course, 
+  user, 
+  progress, 
+  onCompleteLesson 
+}: { 
+  course: any; 
+  user: User; 
+  progress: any[]; 
+  onCompleteLesson: (data: { userId: string; lessonId: string }) => void;
+}) => {
+  const { data: lessons, isLoading } = useLessons(course.id);
+
+  if (isLoading) {
+    return <div className="text-white">Cargando lecciones...</div>;
+  }
+
+  return (
     <div className="space-y-4">
-      <div>
-        <div className="flex justify-between text-white mb-2">
-          <span className="font-inter">Fundamentos del Karting</span>
-          <span className="font-orbitron">25%</span>
-        </div>
-        <div className="w-full bg-racing-black-light rounded-full h-3">
-          <div className="bg-racing-gradient h-3 rounded-full" style={{ width: '25%' }}></div>
+      <h3 className="text-2xl font-orbitron font-bold text-white">{course.title}</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {lessons?.map((lesson, index) => {
+          const isCompleted = progress.some(p => p.lesson_id === lesson.id && p.completed);
+          const canAccess = index === 0 || progress.some(p => 
+            lessons[index - 1] && p.lesson_id === lessons[index - 1].id && p.completed
+          );
+
+          return (
+            <div key={lesson.id} className={`racing-card p-6 ${!canAccess ? 'opacity-50' : ''}`}>
+              <h4 className="text-xl font-orbitron font-semibold text-white mb-3">
+                {lesson.title}
+              </h4>
+              <p className="text-gray-300 mb-4 font-inter">
+                {lesson.description}
+              </p>
+              <div className="flex justify-between items-center">
+                <span className="level-badge level-amateur">{course.level}</span>
+                <Button 
+                  className="racing-button"
+                  disabled={!canAccess || isCompleted}
+                  onClick={() => {
+                    if (canAccess && !isCompleted) {
+                      onCompleteLesson({ userId: user.id, lessonId: lesson.id });
+                    }
+                  }}
+                >
+                  {isCompleted ? 'Completada' : canAccess ? 'Comenzar' : 'Bloqueada'}
+                </Button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const ProgressContent = ({ user }: { user: User }) => {
+  const { data: progress, isLoading } = useUserProgress(user);
+  const { data: courses } = useCourses();
+
+  if (isLoading) {
+    return <div className="text-white">Cargando progreso...</div>;
+  }
+
+  const completedLessons = progress?.filter(p => p.completed).length || 0;
+  const totalLessons = 3; // Por ahora tenemos 3 lecciones en Fundamentos
+
+  return (
+    <div className="racing-card p-6">
+      <h2 className="text-3xl font-orbitron font-bold text-white mb-6">Mi Progreso</h2>
+      <div className="space-y-4">
+        <div>
+          <div className="flex justify-between text-white mb-2">
+            <span className="font-inter">Fundamentos del Karting</span>
+            <span className="font-orbitron">{Math.round((completedLessons / totalLessons) * 100)}%</span>
+          </div>
+          <div className="w-full bg-racing-black-light rounded-full h-3">
+            <div 
+              className="bg-racing-gradient h-3 rounded-full transition-all duration-500" 
+              style={{ width: `${(completedLessons / totalLessons) * 100}%` }}
+            />
+          </div>
+          <p className="text-gray-300 text-sm mt-2">
+            {completedLessons} de {totalLessons} lecciones completadas
+          </p>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ExercisesContent = () => (
   <div className="racing-card p-6">
