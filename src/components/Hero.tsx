@@ -1,8 +1,22 @@
 
 import { ArrowRight, Zap, Trophy, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/auth');
+  };
+
+  const handleExploreCourses = () => {
+    const coursesSection = document.getElementById('cursos');
+    if (coursesSection) {
+      coursesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background with animated elements */}
@@ -54,13 +68,14 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="racing-button text-lg px-8 py-4 group">
+            <Button className="racing-button text-lg px-8 py-4 group" onClick={handleGetStarted}>
               Comenzar mi Entrenamiento
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
               variant="outline" 
               className="text-lg px-8 py-4 border-racing-red/30 text-white hover:bg-racing-red/10 hover:border-racing-red"
+              onClick={handleExploreCourses}
             >
               Explorar Cursos
             </Button>

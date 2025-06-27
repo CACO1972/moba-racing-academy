@@ -9,7 +9,14 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/auth');
+    // Scroll to the auth section instead of navigating to a different page
+    const authSection = document.getElementById('auth-section');
+    if (authSection) {
+      authSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // If no auth section exists, navigate to /auth
+      navigate('/auth');
+    }
   };
 
   return (
