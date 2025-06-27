@@ -1,9 +1,8 @@
-
 export interface Course {
   id: string;
   title: string;
   description: string;
-  level: 'amateur' | 'professional' | 'expert';
+  level: string;
   created_at: string;
 }
 
