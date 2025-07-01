@@ -21,6 +21,20 @@ const Footer = () => {
               La primera y única plataforma digital especializada en enseñanza de conducción deportiva 
               para karting, carrozados y fórmula. Desde nivel amateur hasta senior.
             </p>
+            
+            {/* MORA MOTORSPORT Branding */}
+            <div className="flex items-center space-x-3 mb-6 p-4 bg-racing-black-light rounded-lg border border-racing-red/20">
+              <img 
+                src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" 
+                alt="MORA MOTORSPORT" 
+                className="h-10 w-auto"
+              />
+              <div>
+                <p className="text-white font-orbitron font-semibold text-sm">Powered by MORA MOTORSPORT</p>
+                <p className="text-gray-400 font-inter text-xs">Excelencia en automovilismo deportivo</p>
+              </div>
+            </div>
+
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-gray-400 font-inter text-sm">
                 <Mail className="w-4 h-4 text-racing-red" />
@@ -64,10 +78,16 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-racing-red/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 font-inter text-sm">
-            © 2024 Racing Academy. Todos los derechos reservados.
-          </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
+          <div className="flex items-center space-x-4 mb-4 md:mb-0">
+            <p className="text-gray-400 font-inter text-sm">
+              © 2024 Racing Academy. Todos los derechos reservados.
+            </p>
+            <span className="text-gray-600">•</span>
+            <p className="text-gray-400 font-inter text-sm">
+              Una iniciativa de MORA MOTORSPORT
+            </p>
+          </div>
+          <div className="flex space-x-6">
             <a href="#" className="text-gray-400 hover:text-racing-red transition-colors font-inter text-sm">Política de Privacidad</a>
             <a href="#" className="text-gray-400 hover:text-racing-red transition-colors font-inter text-sm">Términos de Uso</a>
             <a href="#" className="text-gray-400 hover:text-racing-red transition-colors font-inter text-sm">Contacto</a>
