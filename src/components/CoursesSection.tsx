@@ -20,7 +20,7 @@ const courses = [
       'Conceptos de frenado progresivo',
       'Línea de carrera ideal'
     ],
-    image: 'photo-1540739313152-b3e4b1c8a2f6',
+    image: '/lovable-uploads/42689cf5-83f0-4d70-811a-6f00dd32498e.png',
     resources: [
       { type: 'video', title: 'Introducción al Karting', duration: '12 min' },
       { type: 'infographic', title: 'Posición ideal del piloto' },
@@ -43,7 +43,7 @@ const courses = [
       'Transferencia de peso dinámica',
       'Aplicación en diferentes curvas'
     ],
-    image: 'photo-1583121274602-3e2820c69888',
+    image: '/lovable-uploads/5157af46-9b4f-437b-a017-18787e59c49d.png',
     resources: [
       { type: 'video', title: 'Trail Braking Explicado', duration: '25 min' },
       { type: 'infographic', title: 'Transferencia de peso' },
@@ -66,7 +66,7 @@ const courses = [
       'Optimización de trazadas',
       'Comparación entre pilotos'
     ],
-    image: 'photo-1558618666-fcd25c85cd64',
+    image: '/lovable-uploads/78a1e3eb-5afd-4cd6-bda2-b63b0ea99fda.png',
     resources: [
       { type: 'video', title: 'Introducción a la telemetría', duration: '30 min' },
       { type: 'infographic', title: 'Dashboard de telemetría' },
@@ -89,7 +89,7 @@ const courses = [
       'Presiones y temperaturas de neumáticos',
       'Ajustes específicos por circuito'
     ],
-    image: 'photo-1571019613454-1cb2f99b2d8b',
+    image: '/lovable-uploads/81131fbb-e1b3-4f4e-9249-bd1edc7d6b03.png',
     resources: [
       { type: 'video', title: 'Setup básico de karting', duration: '20 min' },
       { type: 'infographic', title: 'Componentes de suspensión' },
@@ -112,7 +112,7 @@ const courses = [
       'Práctica en pista - Karting',
       'Práctica en pista - Carrozado/Fórmula'
     ],
-    image: 'photo-1568605114967-8130f3a36994',
+    image: '/lovable-uploads/78a1e3eb-5afd-4cd6-bda2-b63b0ea99fda.png',
     resources: [
       { type: 'video', title: 'Introducción al Programa Pro', duration: '15 min' },
       { type: 'infographic', title: 'Simuladores disponibles' },
@@ -162,7 +162,7 @@ const CoursesSection = () => {
               {/* Course Image */}
               <div className="relative h-48 bg-gradient-to-br from-racing-red/20 to-racing-black overflow-hidden">
                 <img 
-                  src={`https://images.unsplash.com/${course.image}?auto=format&fit=crop&w=800&q=80`}
+                  src={course.image}
                   alt={course.title}
                   className="w-full h-full object-cover opacity-60"
                 />

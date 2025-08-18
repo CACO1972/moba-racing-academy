@@ -19,7 +19,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 8,
       progress: 25,
       price: 'Gratis',
-      image: 'https://images.unsplash.com/photo-1540739313152-b3e4b1c8a2f6?w=400&h=250&fit=crop',
+      image: '/lovable-uploads/42689cf5-83f0-4d70-811a-6f00dd32498e.png',
       isPremium: false,
       rating: 4.8,
       students: 1247
@@ -33,7 +33,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 16,
       progress: 0,
       price: '$149',
-      image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400&h=250&fit=crop',
+      image: '/lovable-uploads/5157af46-9b4f-437b-a017-18787e59c49d.png',
       isPremium: true,
       rating: 4.9,
       students: 523
@@ -47,7 +47,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 24,
       progress: 0,
       price: '$299',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
+      image: '/lovable-uploads/78a1e3eb-5afd-4cd6-bda2-b63b0ea99fda.png',
       isPremium: true,
       rating: 5.0,
       students: 189
@@ -61,7 +61,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 30,
       progress: 0,
       price: 'Desde $799',
-      image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=250&fit=crop',
+      image: '/lovable-uploads/81131fbb-e1b3-4f4e-9249-bd1edc7d6b03.png',
       isPremium: true,
       rating: 5.0,
       students: 47,
