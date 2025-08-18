@@ -1,8 +1,9 @@
 
 import React from 'react';
-import { Play, Clock, Trophy, Star, Lock } from 'lucide-react';
+import { Play, Clock, Trophy, Star, Lock, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import ProTermsDialog from '@/components/ProTermsDialog';
 
 interface CoursesViewProps {
   onCourseSelect: (courseId: string) => void;
@@ -51,6 +52,21 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       isPremium: true,
       rating: 5.0,
       students: 189
+    },
+    {
+      id: 'pro',
+      title: 'Programa Pro: Sim + Pista',
+      description: 'Nivel Senior + simuladores profesionales + entrenamiento en pista real',
+      level: 'Pro',
+      duration: '20+ horas',
+      lessons: 30,
+      progress: 0,
+      price: 'Desde $799',
+      image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=250&fit=crop',
+      isPremium: true,
+      rating: 5.0,
+      students: 47,
+      isProProgram: true
     }
   ];
 
@@ -59,6 +75,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       case 'Amateur': return 'level-amateur';
       case 'Profesional': return 'level-professional';
       case 'Senior': return 'level-senior';
+      case 'Pro': return 'level-pro';
       default: return 'level-amateur';
     }
   };
@@ -93,7 +110,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
               {course.isPremium && (
                 <div className="absolute top-3 right-3">
                   <Badge className="bg-racing-gold/20 text-racing-gold border-racing-gold/30">
-                    Premium
+                    {course.isProProgram ? 'Pro' : 'Premium'}
                   </Badge>
                 </div>
               )}
@@ -157,28 +174,48 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
                     <span className="text-racing-gold">{course.price}</span>
                   )}
                 </div>
-                <Button
-                  onClick={() => onCourseSelect(course.id)}
-                  className={`racing-button ${course.isPremium && course.progress === 0 ? 'opacity-75' : ''}`}
-                  disabled={course.isPremium && course.progress === 0}
-                >
-                  {course.isPremium && course.progress === 0 ? (
-                    <>
+                
+                {course.isProProgram ? (
+                  <div className="flex items-center space-x-2">
+                    <ProTermsDialog>
+                      <Button variant="outline" size="sm" className="border-racing-gold/30 text-racing-gold hover:bg-racing-gold/10">
+                        <ExternalLink className="h-3 w-3 mr-1" />
+                        Condiciones
+                      </Button>
+                    </ProTermsDialog>
+                    <Button
+                      onClick={() => onCourseSelect(course.id)}
+                      className="racing-button"
+                      disabled={course.isPremium && course.progress === 0}
+                    >
                       <Lock className="h-4 w-4 mr-2" />
                       Adquirir
-                    </>
-                  ) : course.progress > 0 ? (
-                    <>
-                      <Play className="h-4 w-4 mr-2" />
-                      Continuar
-                    </>
-                  ) : (
-                    <>
-                      <Play className="h-4 w-4 mr-2" />
-                      Comenzar
-                    </>
-                  )}
-                </Button>
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    onClick={() => onCourseSelect(course.id)}
+                    className={`racing-button ${course.isPremium && course.progress === 0 ? 'opacity-75' : ''}`}
+                    disabled={course.isPremium && course.progress === 0}
+                  >
+                    {course.isPremium && course.progress === 0 ? (
+                      <>
+                        <Lock className="h-4 w-4 mr-2" />
+                        Adquirir
+                      </>
+                    ) : course.progress > 0 ? (
+                      <>
+                        <Play className="h-4 w-4 mr-2" />
+                        Continuar
+                      </>
+                    ) : (
+                      <>
+                        <Play className="h-4 w-4 mr-2" />
+                        Comenzar
+                      </>
+                    )}
+                  </Button>
+                )}
               </div>
             </div>
           </div>

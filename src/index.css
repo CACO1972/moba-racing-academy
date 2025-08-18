@@ -91,6 +91,10 @@
     @apply bg-racing-red/20 text-racing-red border border-racing-red/30;
   }
 
+  .level-pro {
+    @apply bg-purple-500/20 text-purple-400 border border-purple-500/30;
+  }
+
   .speed-lines {
     @apply relative overflow-hidden;
   }

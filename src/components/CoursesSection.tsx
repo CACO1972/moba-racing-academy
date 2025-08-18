@@ -3,6 +3,7 @@ import { Book, Play, FileText, ExternalLink, Clock, Users } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import ProTermsDialog from '@/components/ProTermsDialog';
 
 const courses = [
   {
@@ -96,6 +97,30 @@ const courses = [
       { type: 'exercise', title: 'Calculadora de setup' },
       { type: 'link', title: 'Base de datos de setups' }
     ]
+  },
+  {
+    id: 'programa-pro',
+    title: 'Programa Pro: Sim + Pista',
+    description: 'Nivel Senior + simuladores profesionales + entrenamiento en pista real con karting, carrozado o fórmula.',
+    level: 'Pro',
+    levelColor: 'level-pro',
+    duration: '20+ horas',
+    lessons: 30,
+    students: 47,
+    topics: [
+      'Todo el contenido Senior',
+      'Simuladores profesionales',
+      'Práctica en pista - Karting',
+      'Práctica en pista - Carrozado/Fórmula'
+    ],
+    image: 'photo-1551698618-1dfe5d97d256',
+    resources: [
+      { type: 'video', title: 'Introducción al Programa Pro', duration: '15 min' },
+      { type: 'infographic', title: 'Simuladores disponibles' },
+      { type: 'exercise', title: 'Evaluación pre-pista' },
+      { type: 'link', title: 'Condiciones y términos', isProTerms: true }
+    ],
+    isProProgram: true
   }
 ];
 
@@ -134,7 +159,7 @@ const CoursesSection = () => {
         {/* Courses Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
           {courses.map((course) => (
-            <Card key={course.id} className="racing-card overflow-hidden">
+            <Card key={course.id} className={`racing-card overflow-hidden ${course.isProProgram ? 'ring-2 ring-purple-500/30' : ''}`}>
               {/* Course Image */}
               <div className="relative h-48 bg-gradient-to-br from-racing-red/20 to-racing-black overflow-hidden">
                 <img 
@@ -146,6 +171,11 @@ const CoursesSection = () => {
                 <Badge className={`absolute top-4 left-4 level-badge ${course.levelColor}`}>
                   {course.level}
                 </Badge>
+                {course.isProProgram && (
+                  <Badge className="absolute top-4 right-4 bg-purple-500/20 text-purple-400 border-purple-500/30">
+                    Programa Exclusivo
+                  </Badge>
+                )}
               </div>
 
               <CardHeader className="pb-4">
@@ -184,7 +214,7 @@ const CoursesSection = () => {
                   <ul className="space-y-1">
                     {course.topics.map((topic, index) => (
                       <li key={index} className="text-gray-300 font-inter text-sm flex items-center space-x-2">
-                        <div className="w-1.5 h-1.5 bg-racing-red rounded-full flex-shrink-0" />
+                        <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${course.isProProgram ? 'bg-purple-400' : 'bg-racing-red'}`} />
                         <span>{topic}</span>
                       </li>
                     ))}
@@ -200,7 +230,15 @@ const CoursesSection = () => {
                       return (
                         <div key={index} className="flex items-center space-x-2 text-gray-400 text-xs font-inter">
                           <Icon className="w-3 h-3 text-racing-gold flex-shrink-0" />
-                          <span className="truncate">{resource.title}</span>
+                          {resource.isProTerms ? (
+                            <ProTermsDialog>
+                              <button className="truncate hover:text-purple-400 transition-colors">
+                                {resource.title}
+                              </button>
+                            </ProTermsDialog>
+                          ) : (
+                            <span className="truncate">{resource.title}</span>
+                          )}
                           {resource.duration && (
                             <span className="text-gray-500">({resource.duration})</span>
                           )}
@@ -210,8 +248,8 @@ const CoursesSection = () => {
                   </div>
                 </div>
 
-                <Button className="w-full racing-button">
-                  Acceder al Curso
+                <Button className={`w-full ${course.isProProgram ? 'bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900' : 'racing-button'}`}>
+                  {course.isProProgram ? 'Consultar Programa Pro' : 'Acceder al Curso'}
                 </Button>
               </CardContent>
             </Card>
