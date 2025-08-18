@@ -1,24 +1,20 @@
-
 import { ArrowRight, Zap, Trophy, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-
 const Hero = () => {
   const navigate = useNavigate();
-
   const handleGetStarted = () => {
     navigate('/auth');
   };
-
   const handleExploreCourses = () => {
     const coursesSection = document.getElementById('cursos');
     if (coursesSection) {
-      coursesSection.scrollIntoView({ behavior: 'smooth' });
+      coursesSection.scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   };
-
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background with animated elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-racing-black via-racing-black-light to-racing-black">
         <div className="absolute inset-0 opacity-20">
@@ -54,7 +50,7 @@ const Hero = () => {
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             <div className="flex items-center space-x-2 text-racing-gold">
               <Target className="w-5 h-5" />
-              <span className="font-inter">Trail Braking & Técnicas Avanzadas</span>
+              <span className="font-inter">Dirigida por G. Bacigalupo</span>
             </div>
             <div className="flex items-center space-x-2 text-racing-gold">
               <Trophy className="w-5 h-5" />
@@ -72,11 +68,7 @@ const Hero = () => {
               Comenzar mi Entrenamiento
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button 
-              variant="outline" 
-              className="text-lg px-8 py-4 border-racing-red/30 text-white hover:bg-racing-red/10 hover:border-racing-red"
-              onClick={handleExploreCourses}
-            >
+            <Button variant="outline" className="text-lg px-8 py-4 border-racing-red/30 text-white hover:bg-racing-red/10 hover:border-racing-red" onClick={handleExploreCourses}>
               Explorar Cursos
             </Button>
           </div>
@@ -98,8 +90,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;

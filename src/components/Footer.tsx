@@ -1,9 +1,6 @@
-
 import { Mail, MapPin, Phone } from 'lucide-react';
-
 const Footer = () => {
-  return (
-    <footer className="bg-racing-black border-t border-racing-red/20">
+  return <footer className="bg-racing-black border-t border-racing-red/20">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -24,29 +21,26 @@ const Footer = () => {
             
             {/* MORA MOTORSPORT Branding */}
             <div className="flex items-center space-x-3 mb-6 p-4 bg-racing-black-light rounded-lg border border-racing-red/20">
-              <img 
-                src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" 
-                alt="MORA MOTORSPORT" 
-                className="h-10 w-auto"
-              />
+              <img src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" alt="MORA MOTORSPORT" className="h-10 w-auto" />
               <div>
-                <p className="text-white font-orbitron font-semibold text-sm">Powered by MORA MOTORSPORT</p>
-                <p className="text-gray-400 font-inter text-xs">Excelencia en automovilismo deportivo</p>
+                <p className="text-white font-orbitron font-semibold text-sm">Powered by MOBA MOTORSPORT</p>
+                <p className="text-gray-400 font-inter text-xs">        DIRECTOR / GIUSEPPE BACIGALUPO</p>
               </div>
             </div>
 
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-gray-400 font-inter text-sm">
                 <Mail className="w-4 h-4 text-racing-red" />
-                <span>info@racingacademy.com</span>
+                <span>c.montoya@mobamotorsport.cl</span>
               </div>
               <div className="flex items-center space-x-2 text-gray-400 font-inter text-sm">
                 <Phone className="w-4 h-4 text-racing-red" />
-                <span>+1 (555) 123-4567</span>
+                <span>+569 88085850 </span>
               </div>
               <div className="flex items-center space-x-2 text-gray-400 font-inter text-sm">
-                <MapPin className="w-4 h-4 text-racing-red" />
-                <span>Circuito Internacional</span>
+                
+                <span>
+              </span>
               </div>
             </div>
           </div>
@@ -83,9 +77,7 @@ const Footer = () => {
               © 2024 Racing Academy. Todos los derechos reservados.
             </p>
             <span className="text-gray-600">•</span>
-            <p className="text-gray-400 font-inter text-sm">
-              Una iniciativa de MORA MOTORSPORT
-            </p>
+            <p className="text-gray-400 font-inter text-sm">Una iniciativa de MOBA MOTORSPORT Y ACADEMIA DE PILOTOS BACIGALUPO</p>
           </div>
           <div className="flex space-x-6">
             <a href="#" className="text-gray-400 hover:text-racing-red transition-colors font-inter text-sm">Política de Privacidad</a>
@@ -94,8 +86,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;

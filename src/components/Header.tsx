@@ -1,46 +1,39 @@
-
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-
   const handleGetStarted = () => {
     // Scroll to the auth section instead of navigating to a different page
     const authSection = document.getElementById('auth-section');
     if (authSection) {
-      authSection.scrollIntoView({ behavior: 'smooth' });
+      authSection.scrollIntoView({
+        behavior: 'smooth'
+      });
     } else {
       // If no auth section exists, navigate to /auth
       navigate('/auth');
     }
   };
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-racing-black/95 backdrop-blur-sm border-b border-racing-red/20">
+  return <header className="fixed top-0 left-0 right-0 z-50 bg-racing-black/95 backdrop-blur-sm border-b border-racing-red/20">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-racing-gradient rounded-lg flex items-center justify-center">
-                <span className="text-white font-orbitron font-bold text-lg">R</span>
+                <span className="text-white font-orbitron font-bold text-lg">M</span>
               </div>
               <div>
-                <h1 className="text-xl font-orbitron font-bold text-white">Racing Academy</h1>
-                <p className="text-xs text-racing-gold">Conducción Deportiva</p>
+                <h1 className="text-xl font-orbitron font-bold text-white">Moba Racing Academy</h1>
+                <p className="text-xs text-racing-gold">   </p>
               </div>
             </div>
             {/* Moba Logo */}
             <div className="hidden md:flex items-center space-x-2 pl-4 border-l border-racing-red/30">
-              <img 
-                src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" 
-                alt="Moba" 
-                className="h-8 w-auto"
-              />
+              <img src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" alt="Moba" className="h-8 w-auto" />
               <span className="text-xs text-gray-400 font-inter">Powered by</span>
             </div>
           </div>
@@ -60,24 +53,16 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
+          <button className="md:hidden text-white p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-racing-red/20">
+        {isMenuOpen && <div className="md:hidden mt-4 pb-4 border-t border-racing-red/20">
             {/* Moba Logo for Mobile */}
             <div className="flex items-center justify-center space-x-2 py-4 border-b border-racing-red/20">
-              <img 
-                src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" 
-                alt="Moba" 
-                className="h-6 w-auto"
-              />
+              <img src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" alt="Moba" className="h-6 w-auto" />
               <span className="text-xs text-gray-400 font-inter">Powered by</span>
             </div>
             <nav className="flex flex-col space-y-4 mt-4">
@@ -88,11 +73,8 @@ const Header = () => {
                 Comenzar Ahora
               </Button>
             </nav>
-          </div>
-        )}
+          </div>}
       </div>
-    </header>
-  );
+    </header>;
 };
-
 export default Header;
