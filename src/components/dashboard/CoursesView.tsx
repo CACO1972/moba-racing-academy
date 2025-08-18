@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Play, Clock, Trophy, Star, Lock, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,7 +19,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 8,
       progress: 25,
       price: 'Gratis',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
+      image: 'https://images.unsplash.com/photo-1540739313152-b3e4b1c8a2f6?w=400&h=250&fit=crop',
       isPremium: false,
       rating: 4.8,
       students: 1247
@@ -34,7 +33,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 16,
       progress: 0,
       price: '$149',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop',
+      image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400&h=250&fit=crop',
       isPremium: true,
       rating: 4.9,
       students: 523
@@ -48,7 +47,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 24,
       progress: 0,
       price: '$299',
-      image: 'https://images.unsplash.com/photo-1568605117036-cfb5e32e7882?w=400&h=250&fit=crop',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
       isPremium: true,
       rating: 5.0,
       students: 189
@@ -62,7 +61,7 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 30,
       progress: 0,
       price: 'Desde $799',
-      image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=250&fit=crop',
+      image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=250&fit=crop',
       isPremium: true,
       rating: 5.0,
       students: 47,
