@@ -1,9 +1,7 @@
 
 import React from 'react';
-import { Play, Clock, Trophy, Star, Lock, ExternalLink, Brain, Cpu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import ProTermsDialog from '@/components/ProTermsDialog';
+import { Trophy, Zap, Brain, BarChart3 } from 'lucide-react';
+import CoursePreviewCard from '../CoursePreviewCard';
 
 interface CoursesViewProps {
   onCourseSelect: (courseId: string) => void;
@@ -12,268 +10,143 @@ interface CoursesViewProps {
 const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
   const courses = [
     {
-      id: 'basic',
-      title: 'Curso Básico de Conducción Deportiva',
-      description: 'Fundamentos esenciales para iniciarse en la conducción deportiva',
-      level: 'Amateur',
-      duration: '4 horas',
-      lessons: 8,
-      progress: 25,
-      price: 'Gratis',
-      image: '/lovable-uploads/42689cf5-83f0-4d70-811a-6f00dd32498e.png',
-      isPremium: false,
-      rating: 4.8,
-      students: 1247
+      id: 'karting-basics',
+      title: 'Fundamentos de Karting',
+      description: 'Aprende las bases del karting: técnicas de frenado, trazadas óptimas y posición corporal. Ideal para principiantes que quieren dominar los fundamentos.',
+      level: 'amateur' as const,
+      duration: '4 semanas',
+      lessons: 12,
+      students: 1240,
+      instructor: 'G. Bacigalupo',
+      preview: 'available'
+    },
+    {
+      id: 'circuit-mastery',
+      title: 'Dominio de Circuito',
+      description: 'Técnicas avanzadas para diferentes tipos de circuitos: callejeros, permanentes y mixtos. Aprende a adaptar tu estilo según las condiciones.',
+      level: 'professional' as const,
+      duration: '6 semanas',
+      lessons: 18,
+      students: 890,
+      instructor: 'G. Bacigalupo',
+      preview: 'available'
+    },
+    {
+      id: 'advanced-racing',
+      title: 'Técnicas de Racing Avanzado',
+      description: 'Estrategias de carrera, manejo bajo presión y técnicas de adelantamiento. Para pilotos que buscan el siguiente nivel competitivo.',
+      level: 'senior' as const,
+      duration: '8 semanas',
+      lessons: 24,
+      students: 567,
+      instructor: 'G. Bacigalupo',
+      preview: 'available'
     },
     {
       id: 'neurocognitive',
       title: 'Entrenamiento Neurocognitivo',
-      description: 'Desarrolla tu potencial cerebral para la conducción deportiva con evaluación personalizada',
-      level: 'Profesional',
-      duration: '10 horas',
-      lessons: 20,
-      progress: 0,
-      price: '$199',
-      image: '/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png',
-      isPremium: true,
-      rating: 4.9,
-      students: 312,
-      isNeurocognitive: true
+      description: 'Programa personalizado con evaluación previa para mejorar coordinación ojo-mano, memoria muscular, velocidad de reacción y concentración bajo presión.',
+      level: 'pro' as const,
+      duration: '12 semanas',
+      lessons: 36,
+      students: 234,
+      instructor: 'Dr. Performance Team',
+      preview: 'evaluation'
     },
     {
       id: 'telemetry-ai',
       title: 'Telemetría Profesional con IA',
-      description: 'Análisis inteligente de datos de telemetría con personalización asistida por IA para optimizar tu rendimiento',
-      level: 'Profesional',
-      duration: '12 horas',
-      lessons: 18,
-      progress: 0,
-      price: '$249',
-      image: '/lovable-uploads/78a1e3eb-5afd-4cd6-bda2-b63b0ea99fda.png',
-      isPremium: true,
-      rating: 4.9,
-      students: 156,
-      isTelemetryAI: true
-    },
-    {
-      id: 'advanced',
-      title: 'Técnicas Avanzadas de Pista',
-      description: 'Perfecciona tu técnica con estrategias profesionales de circuito',
-      level: 'Profesional',
-      duration: '8 horas',
-      lessons: 16,
-      progress: 0,
-      price: '$149',
-      image: '/lovable-uploads/5157af46-9b4f-437b-a017-18787e59c49d.png',
-      isPremium: true,
-      rating: 4.9,
-      students: 523
-    },
-    {
-      id: 'racing',
-      title: 'Preparación para Competición',
-      description: 'Todo lo necesario para competir en eventos oficiales',
-      level: 'Senior',
-      duration: '12 horas',
-      lessons: 24,
-      progress: 0,
-      price: '$299',
-      image: '/lovable-uploads/78a1e3eb-5afd-4cd6-bda2-b63b0ea99fda.png',
-      isPremium: true,
-      rating: 5.0,
-      students: 189
-    },
-    {
-      id: 'pro',
-      title: 'Programa Pro: Sim + Pista',
-      description: 'Nivel Senior + simuladores profesionales + entrenamiento en pista real',
-      level: 'Pro',
-      duration: '20+ horas',
+      description: 'Análisis avanzado de datos con inteligencia artificial. Personalización asistida para optimizar tu rendimiento y ganar esas décimas cruciales.',
+      level: 'pro' as const,
+      duration: '10 semanas',
       lessons: 30,
-      progress: 0,
-      price: 'Desde $799',
-      image: '/lovable-uploads/81131fbb-e1b3-4f4e-9249-bd1edc7d6b03.png',
-      isPremium: true,
-      rating: 5.0,
-      students: 47,
-      isProProgram: true
+      students: 156,
+      instructor: 'AI Performance Lab',
+      preview: 'demo'
     }
   ];
 
-  const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'Amateur': return 'level-amateur';
-      case 'Profesional': return 'level-professional';
-      case 'Senior': return 'level-senior';
-      case 'Pro': return 'level-pro';
-      default: return 'level-amateur';
-    }
-  };
+  const featuredCourse = courses[0];
+  const otherCourses = courses.slice(1);
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-orbitron font-bold text-white mb-2">Cursos Disponibles</h1>
-          <p className="text-racing-silver">Desarrolla tus habilidades de conducción deportiva</p>
-        </div>
-        <div className="racing-card p-4">
-          <div className="flex items-center space-x-2">
-            <Trophy className="h-5 w-5 text-racing-gold" />
-            <span className="text-white font-semibold">Progreso Total: 8%</span>
+    <div className="space-y-8 animate-fade-in">
+      {/* Hero Section */}
+      <div className="racing-card p-8 bg-gradient-to-r from-racing-black-light via-racing-black to-racing-black-light relative overflow-hidden">
+        <div className="absolute inset-0 bg-speed-gradient opacity-5"></div>
+        <div className="relative z-10">
+          <div className="flex items-center space-x-3 mb-4">
+            <Trophy className="h-8 w-8 text-racing-gold" />
+            <h1 className="font-orbitron font-bold text-white text-3xl">
+              Cursos Racing Academy
+            </h1>
+          </div>
+          <p className="text-racing-silver text-lg mb-6 max-w-3xl">
+            Domina el arte del automovilismo deportivo con nuestros cursos diseñados por profesionales. 
+            Desde karting básico hasta técnicas de Fórmula 1.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center space-x-2 text-racing-gold">
+              <Zap className="h-5 w-5" />
+              <span className="font-inter">Contenido actualizado semanalmente</span>
+            </div>
+            <div className="flex items-center space-x-2 text-racing-gold">
+              <Brain className="h-5 w-5" />
+              <span className="font-inter">Técnicas neurocognitivas</span>
+            </div>
+            <div className="flex items-center space-x-2 text-racing-gold">
+              <BarChart3 className="h-5 w-5" />
+              <span className="font-inter">Análisis con IA</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Courses Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        {courses.map((course) => (
-          <div key={course.id} className="racing-card group hover:scale-105 transition-all duration-300 overflow-hidden">
-            {/* Course Image */}
-            <div className="relative">
-              <img 
-                src={course.image} 
-                alt={course.title}
-                className="w-full h-48 object-cover"
-              />
-              {course.isPremium && (
-                <div className="absolute top-3 right-3">
-                  <Badge className={`${course.isProProgram ? 'bg-racing-gold/20 text-racing-gold border-racing-gold/30' : course.isNeurocognitive ? 'bg-purple-500/20 text-purple-400 border-purple-500/30' : course.isTelemetryAI ? 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30' : 'bg-racing-gold/20 text-racing-gold border-racing-gold/30'}`}>
-                    {course.isProProgram ? 'Pro' : course.isNeurocognitive ? 'Neurocognitivo' : course.isTelemetryAI ? 'IA' : 'Premium'}
-                  </Badge>
-                </div>
-              )}
-              <div className="absolute bottom-3 left-3">
-                <Badge className={`level-badge ${getLevelColor(course.level)}`}>
-                  {course.level}
-                </Badge>
-              </div>
-              {course.isNeurocognitive && (
-                <div className="absolute top-3 left-3">
-                  <Brain className="h-6 w-6 text-purple-400" />
-                </div>
-              )}
-              {course.isTelemetryAI && (
-                <div className="absolute top-3 left-3">
-                  <Cpu className="h-6 w-6 text-cyan-400" />
-                </div>
-              )}
-            </div>
-
-            {/* Course Content */}
-            <div className="p-6">
-              <h3 className="font-orbitron font-bold text-white text-lg mb-2 group-hover:text-racing-red transition-colors">
-                {course.title}
-              </h3>
-              <p className="text-racing-silver text-sm mb-4 line-clamp-2">
-                {course.description}
-              </p>
-
-              {/* Stats */}
-              <div className="flex items-center justify-between mb-4 text-sm">
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-1">
-                    <Clock className="h-4 w-4 text-racing-gold" />
-                    <span className="text-racing-silver">{course.duration}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Play className="h-4 w-4 text-racing-red" />
-                    <span className="text-racing-silver">{course.lessons} lecciones</span>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Star className="h-4 w-4 text-racing-gold fill-current" />
-                  <span className="text-white font-semibold">{course.rating}</span>
-                  <span className="text-racing-silver">({course.students})</span>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              {course.progress > 0 && (
-                <div className="mb-4">
-                  <div className="flex items-center justify-between text-sm mb-1">
-                    <span className="text-racing-silver">Progreso</span>
-                    <span className="text-racing-gold font-semibold">{course.progress}%</span>
-                  </div>
-                  <div className="w-full bg-racing-black-light rounded-full h-2">
-                    <div 
-                      className="bg-racing-gradient h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${course.progress}%` }}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Action Button */}
-              <div className="flex items-center justify-between">
-                <div className="text-lg font-orbitron font-bold">
-                  {course.price === 'Gratis' ? (
-                    <span className="text-green-500">{course.price}</span>
-                  ) : (
-                    <span className="text-racing-gold">{course.price}</span>
-                  )}
-                </div>
-                
-                {course.isProProgram ? (
-                  <div className="flex items-center space-x-2">
-                    <ProTermsDialog>
-                      <Button variant="outline" size="sm" className="border-racing-gold/30 text-racing-gold hover:bg-racing-gold/10">
-                        <ExternalLink className="h-3 w-3 mr-1" />
-                        Condiciones
-                      </Button>
-                    </ProTermsDialog>
-                    <Button
-                      onClick={() => onCourseSelect(course.id)}
-                      className="racing-button"
-                      disabled={course.isPremium && course.progress === 0}
-                    >
-                      <Lock className="h-4 w-4 mr-2" />
-                      Adquirir
-                    </Button>
-                  </div>
-                ) : (
-                  <Button
-                    onClick={() => onCourseSelect(course.id)}
-                    className={`${course.isNeurocognitive ? 'bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900' : course.isTelemetryAI ? 'bg-gradient-to-r from-cyan-600 to-cyan-800 hover:from-cyan-700 hover:to-cyan-900' : 'racing-button'} ${course.isPremium && course.progress === 0 ? 'opacity-75' : ''}`}
-                    disabled={course.isPremium && course.progress === 0}
-                  >
-                    {course.isPremium && course.progress === 0 ? (
-                      <>
-                        <Lock className="h-4 w-4 mr-2" />
-                        {course.isNeurocognitive ? 'Evaluación Previa' : course.isTelemetryAI ? 'Análisis con IA' : 'Adquirir'}
-                      </>
-                    ) : course.progress > 0 ? (
-                      <>
-                        <Play className="h-4 w-4 mr-2" />
-                        Continuar
-                      </>
-                    ) : (
-                      <>
-                        <Play className="h-4 w-4 mr-2" />
-                        Comenzar
-                      </>
-                    )}
-                  </Button>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
+      {/* Curso Destacado */}
+      <div className="space-y-4">
+        <h2 className="font-orbitron font-bold text-white text-2xl">Curso Recomendado</h2>
+        <div className="max-w-2xl">
+          <CoursePreviewCard
+            {...featuredCourse}
+            onSelect={onCourseSelect}
+          />
+        </div>
       </div>
 
-      {/* Call to Action */}
-      <div className="racing-card p-8 text-center bg-gradient-to-r from-racing-red/10 to-racing-gold/10 border-racing-red/30">
-        <Trophy className="h-12 w-12 text-racing-gold mx-auto mb-4" />
-        <h3 className="font-orbitron font-bold text-white text-xl mb-2">
-          ¿Listo para el siguiente nivel?
-        </h3>
-        <p className="text-racing-silver mb-4">
-          Accede a cursos premium y contenido exclusivo para acelerar tu aprendizaje
-        </p>
-        <Button className="racing-button">
-          Ver Planes Premium
-        </Button>
+      {/* Otros Cursos */}
+      <div className="space-y-6">
+        <h2 className="font-orbitron font-bold text-white text-2xl">Todos los Cursos</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {otherCourses.map((course) => (
+            <CoursePreviewCard
+              key={course.id}
+              {...course}
+              onSelect={onCourseSelect}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Stats Section */}
+      <div className="racing-card p-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <div className="text-3xl font-orbitron font-bold text-racing-red mb-2">2500+</div>
+            <div className="text-racing-silver text-sm">Estudiantes Activos</div>
+          </div>
+          <div>
+            <div className="text-3xl font-orbitron font-bold text-racing-gold mb-2">120</div>
+            <div className="text-racing-silver text-sm">Lecciones Totales</div>
+          </div>
+          <div>
+            <div className="text-3xl font-orbitron font-bold text-green-400 mb-2">98%</div>
+            <div className="text-racing-silver text-sm">Satisfacción</div>
+          </div>
+          <div>
+            <div className="text-3xl font-orbitron font-bold text-white mb-2">5</div>
+            <div className="text-racing-silver text-sm">Cursos Especializados</div>
+          </div>
+        </div>
       </div>
     </div>
   );

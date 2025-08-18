@@ -3,11 +3,13 @@ import React from 'react';
 import { User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { LogOut } from 'lucide-react';
+import { LogOut, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppState } from '@/hooks/useAppState';
 import DashboardSidebar from './DashboardSidebar';
 import CoursesView from './CoursesView';
+import NavigationBreadcrumbs from '../NavigationBreadcrumbs';
+import EngineAudioControls from '../EngineAudioControls';
 
 interface NewDashboardProps {
   user: User;
@@ -18,6 +20,7 @@ const NewDashboard = ({ user }: NewDashboardProps) => {
   const {
     currentView,
     selectedCourse,
+    selectedLesson,
     sidebarOpen,
     setCurrentView,
     setSelectedCourse,
@@ -45,11 +48,38 @@ const NewDashboard = ({ user }: NewDashboardProps) => {
       case 'courses':
         return <CoursesView onCourseSelect={handleCourseSelect} />;
       case 'progress':
-        return <div className="text-white">Vista de Progreso - En desarrollo</div>;
+        return (
+          <div className="space-y-6 animate-fade-in">
+            <div className="racing-card p-8 text-center">
+              <h2 className="font-orbitron font-bold text-white text-2xl mb-4">
+                Vista de Progreso
+              </h2>
+              <p className="text-racing-silver">En desarrollo - Próximamente</p>
+            </div>
+          </div>
+        );
       case 'profile':
-        return <div className="text-white">Vista de Perfil - En desarrollo</div>;
+        return (
+          <div className="space-y-6 animate-fade-in">
+            <div className="racing-card p-8 text-center">
+              <h2 className="font-orbitron font-bold text-white text-2xl mb-4">
+                Vista de Perfil
+              </h2>
+              <p className="text-racing-silver">En desarrollo - Próximamente</p>
+            </div>
+          </div>
+        );
       case 'lesson':
-        return <div className="text-white">Vista de Lección - En desarrollo</div>;
+        return (
+          <div className="space-y-6 animate-fade-in">
+            <div className="racing-card p-8 text-center">
+              <h2 className="font-orbitron font-bold text-white text-2xl mb-4">
+                Vista de Lección
+              </h2>
+              <p className="text-racing-silver">En desarrollo - Próximamente</p>
+            </div>
+          </div>
+        );
       default:
         return <CoursesView onCourseSelect={handleCourseSelect} />;
     }
@@ -71,29 +101,53 @@ const NewDashboard = ({ user }: NewDashboardProps) => {
         {/* Top Bar */}
         <header className="bg-racing-black-light border-b border-racing-red/20 p-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h1 className="font-orbitron font-bold text-white text-xl">
-                {currentView === 'courses' && 'Cursos'}
-                {currentView === 'progress' && 'Progreso'}
-                {currentView === 'profile' && 'Perfil'}
-                {currentView === 'lesson' && 'Lección'}
-              </h1>
+            <div className="flex items-center space-x-6">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleSidebar}
+                className="text-racing-silver hover:text-white md:hidden"
+              >
+                <Menu className="h-4 w-4" />
+              </Button>
+              
+              <NavigationBreadcrumbs
+                currentView={currentView}
+                selectedCourse={selectedCourse}
+                selectedLesson={selectedLesson}
+                onNavigate={setCurrentView}
+              />
             </div>
-            <Button
-              onClick={handleSignOut}
-              variant="ghost"
-              className="text-racing-silver hover:text-racing-red hover:bg-racing-black-light"
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Salir
-            </Button>
+            
+            <div className="flex items-center space-x-4">
+              {/* Audio Controls para desktop */}
+              <div className="hidden lg:block">
+                <EngineAudioControls />
+              </div>
+              
+              <Button
+                onClick={handleSignOut}
+                variant="ghost"
+                className="text-racing-silver hover:text-racing-red hover:bg-racing-black-light transition-all duration-300"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Salir
+              </Button>
+            </div>
           </div>
         </header>
 
         {/* Content Area */}
         <main className="flex-1 p-6 overflow-auto">
-          {renderCurrentView()}
+          <div className="max-w-7xl mx-auto">
+            {renderCurrentView()}
+          </div>
         </main>
+
+        {/* Audio Controls para mobile */}
+        <div className="lg:hidden border-t border-racing-red/20 p-4">
+          <EngineAudioControls />
+        </div>
       </div>
     </div>
   );
