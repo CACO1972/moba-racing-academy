@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Play, Clock, Trophy, Star, Lock, ExternalLink, Brain } from 'lucide-react';
+import { Play, Clock, Trophy, Star, Lock, ExternalLink, Brain, Cpu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import ProTermsDialog from '@/components/ProTermsDialog';
@@ -39,6 +39,21 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       rating: 4.9,
       students: 312,
       isNeurocognitive: true
+    },
+    {
+      id: 'telemetry-ai',
+      title: 'Telemetría Profesional con IA',
+      description: 'Análisis inteligente de datos de telemetría con personalización asistida por IA para optimizar tu rendimiento',
+      level: 'Profesional',
+      duration: '12 horas',
+      lessons: 18,
+      progress: 0,
+      price: '$249',
+      image: '/lovable-uploads/78a1e3eb-5afd-4cd6-bda2-b63b0ea99fda.png',
+      isPremium: true,
+      rating: 4.9,
+      students: 156,
+      isTelemetryAI: true
     },
     {
       id: 'advanced',
@@ -124,8 +139,8 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
               />
               {course.isPremium && (
                 <div className="absolute top-3 right-3">
-                  <Badge className={`${course.isProProgram ? 'bg-racing-gold/20 text-racing-gold border-racing-gold/30' : course.isNeurocognitive ? 'bg-purple-500/20 text-purple-400 border-purple-500/30' : 'bg-racing-gold/20 text-racing-gold border-racing-gold/30'}`}>
-                    {course.isProProgram ? 'Pro' : course.isNeurocognitive ? 'Neurocognitivo' : 'Premium'}
+                  <Badge className={`${course.isProProgram ? 'bg-racing-gold/20 text-racing-gold border-racing-gold/30' : course.isNeurocognitive ? 'bg-purple-500/20 text-purple-400 border-purple-500/30' : course.isTelemetryAI ? 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30' : 'bg-racing-gold/20 text-racing-gold border-racing-gold/30'}`}>
+                    {course.isProProgram ? 'Pro' : course.isNeurocognitive ? 'Neurocognitivo' : course.isTelemetryAI ? 'IA' : 'Premium'}
                   </Badge>
                 </div>
               )}
@@ -137,6 +152,11 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
               {course.isNeurocognitive && (
                 <div className="absolute top-3 left-3">
                   <Brain className="h-6 w-6 text-purple-400" />
+                </div>
+              )}
+              {course.isTelemetryAI && (
+                <div className="absolute top-3 left-3">
+                  <Cpu className="h-6 w-6 text-cyan-400" />
                 </div>
               )}
             </div>
@@ -215,13 +235,13 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
                 ) : (
                   <Button
                     onClick={() => onCourseSelect(course.id)}
-                    className={`${course.isNeurocognitive ? 'bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900' : 'racing-button'} ${course.isPremium && course.progress === 0 ? 'opacity-75' : ''}`}
+                    className={`${course.isNeurocognitive ? 'bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900' : course.isTelemetryAI ? 'bg-gradient-to-r from-cyan-600 to-cyan-800 hover:from-cyan-700 hover:to-cyan-900' : 'racing-button'} ${course.isPremium && course.progress === 0 ? 'opacity-75' : ''}`}
                     disabled={course.isPremium && course.progress === 0}
                   >
                     {course.isPremium && course.progress === 0 ? (
                       <>
                         <Lock className="h-4 w-4 mr-2" />
-                        {course.isNeurocognitive ? 'Evaluación Previa' : 'Adquirir'}
+                        {course.isNeurocognitive ? 'Evaluación Previa' : course.isTelemetryAI ? 'Análisis con IA' : 'Adquirir'}
                       </>
                     ) : course.progress > 0 ? (
                       <>

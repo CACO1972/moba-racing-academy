@@ -1,5 +1,5 @@
 
-import { Book, Play, FileText, ExternalLink, Clock, Users, Brain } from 'lucide-react';
+import { Book, Play, FileText, ExternalLink, Clock, Users, Brain, Cpu } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -58,6 +58,36 @@ const courses = [
       { type: 'video', title: 'Técnicas de visualización', duration: '30 min' }
     ],
     isNeurocognitive: true
+  },
+  {
+    id: 'telemetry-ai',
+    title: 'Telemetría Profesional con IA',
+    description: 'Análisis inteligente de datos de telemetría con personalización asistida por IA para optimizar tu rendimiento y ganar esas décimas que te faltan.',
+    level: 'Profesional',
+    levelColor: 'level-professional',
+    duration: '180 min',
+    lessons: 18,
+    students: 156,
+    topics: [
+      'Análisis automático de datos con IA',
+      'Personalización de setup basada en telemetría',
+      'Optimización de líneas de carrera',
+      'Análisis predictivo de rendimiento',
+      'Comparación inteligente entre pilotos',
+      'Recomendaciones de mejora automatizadas',
+      'Dashboard personalizado con métricas clave',
+      'Integración con simuladores profesionales'
+    ],
+    image: '/lovable-uploads/78a1e3eb-5afd-4cd6-bda2-b63b0ea99fda.png',
+    resources: [
+      { type: 'video', title: 'Introducción a la IA en Telemetría', duration: '25 min' },
+      { type: 'exercise', title: 'Análisis automatizado de vuelta' },
+      { type: 'infographic', title: 'Dashboard de IA personalizado' },
+      { type: 'exercise', title: 'Optimización de setup con IA' },
+      { type: 'video', title: 'Interpretación de métricas avanzadas', duration: '35 min' },
+      { type: 'pdf', title: 'Guía de mejoras recomendadas por IA' }
+    ],
+    isTelemetryAI: true
   },
   {
     id: 'trail-braking',
@@ -189,7 +219,7 @@ const CoursesSection = () => {
         {/* Courses Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
           {courses.map((course) => (
-            <Card key={course.id} className={`racing-card overflow-hidden ${course.isProProgram ? 'ring-2 ring-purple-500/30' : course.isNeurocognitive ? 'ring-2 ring-purple-400/30' : ''}`}>
+            <Card key={course.id} className={`racing-card overflow-hidden ${course.isProProgram ? 'ring-2 ring-purple-500/30' : course.isNeurocognitive ? 'ring-2 ring-purple-400/30' : course.isTelemetryAI ? 'ring-2 ring-cyan-400/30' : ''}`}>
               {/* Course Image */}
               <div className="relative h-48 bg-gradient-to-br from-racing-red/20 to-racing-black overflow-hidden">
                 <img 
@@ -212,6 +242,14 @@ const CoursesSection = () => {
                       Neurocognitivo
                     </Badge>
                     <Brain className="h-5 w-5 text-purple-400" />
+                  </div>
+                )}
+                {course.isTelemetryAI && (
+                  <div className="absolute top-4 right-4 flex items-center space-x-2">
+                    <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30">
+                      IA Personalizada
+                    </Badge>
+                    <Cpu className="h-5 w-5 text-cyan-400" />
                   </div>
                 )}
               </div>
@@ -252,7 +290,7 @@ const CoursesSection = () => {
                   <ul className="space-y-1">
                     {course.topics.map((topic, index) => (
                       <li key={index} className="text-gray-300 font-inter text-sm flex items-center space-x-2">
-                        <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${course.isProProgram || course.isNeurocognitive ? 'bg-purple-400' : 'bg-racing-red'}`} />
+                        <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${course.isProProgram || course.isNeurocognitive ? 'bg-purple-400' : course.isTelemetryAI ? 'bg-cyan-400' : 'bg-racing-red'}`} />
                         <span>{topic}</span>
                       </li>
                     ))}
@@ -286,8 +324,8 @@ const CoursesSection = () => {
                   </div>
                 </div>
 
-                <Button className={`w-full ${course.isProProgram ? 'bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900' : course.isNeurocognitive ? 'bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800' : 'racing-button'}`}>
-                  {course.isProProgram ? 'Consultar Programa Pro' : course.isNeurocognitive ? 'Iniciar Evaluación' : 'Acceder al Curso'}
+                <Button className={`w-full ${course.isProProgram ? 'bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900' : course.isNeurocognitive ? 'bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800' : course.isTelemetryAI ? 'bg-gradient-to-r from-cyan-500 to-cyan-700 hover:from-cyan-600 hover:to-cyan-800' : 'racing-button'}`}>
+                  {course.isProProgram ? 'Consultar Programa Pro' : course.isNeurocognitive ? 'Iniciar Evaluación' : course.isTelemetryAI ? 'Comenzar Análisis con IA' : 'Acceder al Curso'}
                 </Button>
               </CardContent>
             </Card>
