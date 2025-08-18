@@ -19,15 +19,15 @@ const Auth = () => {
             </div>
           </div>
           
-          {/* MORA MOTORSPORT Branding */}
+          {/* Moba Branding */}
           <div className="flex items-center justify-center space-x-3 mt-6 p-4 bg-racing-black-light rounded-lg border border-racing-red/20">
             <img 
               src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" 
-              alt="MORA MOTORSPORT" 
+              alt="Moba" 
               className="h-8 w-auto"
             />
             <div className="text-left">
-              <p className="text-white font-orbitron font-semibold text-sm">MORA MOTORSPORT</p>
+              <p className="text-white font-orbitron font-semibold text-sm">Moba</p>
               <p className="text-gray-400 font-inter text-xs">Excelencia en automovilismo</p>
             </div>
           </div>

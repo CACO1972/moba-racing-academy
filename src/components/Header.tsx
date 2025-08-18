@@ -34,11 +34,11 @@ const Header = () => {
                 <p className="text-xs text-racing-gold">Conducción Deportiva</p>
               </div>
             </div>
-            {/* MORA MOTORSPORT Logo */}
+            {/* Moba Logo */}
             <div className="hidden md:flex items-center space-x-2 pl-4 border-l border-racing-red/30">
               <img 
                 src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" 
-                alt="MORA MOTORSPORT" 
+                alt="Moba" 
                 className="h-8 w-auto"
               />
               <span className="text-xs text-gray-400 font-inter">Powered by</span>
@@ -71,11 +71,11 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-racing-red/20">
-            {/* MORA MOTORSPORT Logo for Mobile */}
+            {/* Moba Logo for Mobile */}
             <div className="flex items-center justify-center space-x-2 py-4 border-b border-racing-red/20">
               <img 
                 src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" 
-                alt="MORA MOTORSPORT" 
+                alt="Moba" 
                 className="h-6 w-auto"
               />
               <span className="text-xs text-gray-400 font-inter">Powered by</span>
