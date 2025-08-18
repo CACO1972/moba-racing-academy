@@ -1,4 +1,3 @@
-
 import { Book, Play, FileText, ExternalLink, Clock, Users, Brain, Cpu } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -15,6 +14,7 @@ const courses = [
     duration: '45 min',
     lessons: 8,
     students: 1250,
+    price: 'Gratis',
     topics: [
       'Posición y ergonomía del piloto',
       'Técnicas básicas de aceleración',
@@ -33,11 +33,12 @@ const courses = [
     id: 'neurocognitive',
     title: 'Entrenamiento Neurocognitivo',
     description: 'Desarrolla tu potencial cerebral para la conducción deportiva con evaluación personalizada y ejercicios específicos.',
-    level: 'Profesional',
+    level: 'Especializado',
     levelColor: 'level-professional',
     duration: '180 min',
     lessons: 20,
     students: 312,
+    price: 'US$100',
     topics: [
       'Evaluación neurocognitiva personalizada',
       'Coordinación ojo-mano avanzada',
@@ -63,11 +64,12 @@ const courses = [
     id: 'telemetry-ai',
     title: 'Telemetría Profesional con IA',
     description: 'Análisis inteligente de datos de telemetría con personalización asistida por IA para optimizar tu rendimiento y ganar esas décimas que te faltan.',
-    level: 'Profesional',
+    level: 'Especializado',
     levelColor: 'level-professional',
     duration: '180 min',
     lessons: 18,
     students: 156,
+    price: 'US$150',
     topics: [
       'Análisis automático de datos con IA',
       'Personalización de setup basada en telemetría',
@@ -93,11 +95,12 @@ const courses = [
     id: 'trail-braking',
     title: 'Trail Braking Avanzado',
     description: 'Domina la técnica más importante del automovilismo moderno.',
-    level: 'Profesional',
+    level: 'Semi-Pro',
     levelColor: 'level-professional',
     duration: '90 min',
     lessons: 12,
     students: 890,
+    price: 'Incluido en Semi-Pro',
     topics: [
       'Teoría del trail braking',
       'Modulación del pedal de freno',
@@ -116,11 +119,12 @@ const courses = [
     id: 'telemetria',
     title: 'Análisis de Telemetría',
     description: 'Utiliza los datos para mejorar tu rendimiento en pista.',
-    level: 'Senior',
+    level: 'Pro',
     levelColor: 'level-senior',
     duration: '120 min',
     lessons: 15,
     students: 420,
+    price: 'Incluido en Pro',
     topics: [
       'Lectura de datos de telemetría',
       'Análisis de velocidades en curva',
@@ -139,11 +143,12 @@ const courses = [
     id: 'setup',
     title: 'Setup y Configuración',
     description: 'Optimiza la configuración de tu vehículo para cada circuito.',
-    level: 'Profesional',
+    level: 'Semi-Pro',
     levelColor: 'level-professional',
     duration: '75 min',
     lessons: 10,
     students: 650,
+    price: 'Incluido en Semi-Pro',
     topics: [
       'Fundamentos de suspensión',
       'Configuración aerodinámica',
@@ -161,14 +166,15 @@ const courses = [
   {
     id: 'programa-pro',
     title: 'Programa Pro: Sim + Pista',
-    description: 'Nivel Senior + simuladores profesionales + entrenamiento en pista real con karting, carrozado o fórmula.',
-    level: 'Pro',
+    description: 'Nivel Pro + simuladores profesionales + entrenamiento en pista real con karting, carrozado o fórmula.',
+    level: 'Pro+',
     levelColor: 'level-pro',
     duration: '20+ horas',
     lessons: 30,
     students: 47,
+    price: 'Consultar',
     topics: [
-      'Todo el contenido Senior',
+      'Todo el contenido Pro',
       'Simuladores profesionales',
       'Práctica en pista - Karting',
       'Práctica en pista - Carrozado/Fórmula'
@@ -252,6 +258,12 @@ const CoursesSection = () => {
                     <Cpu className="h-5 w-5 text-cyan-400" />
                   </div>
                 )}
+                {/* Price Badge */}
+                <div className="absolute bottom-4 right-4">
+                  <Badge className="bg-racing-red/80 text-white font-orbitron font-bold">
+                    {course.price}
+                  </Badge>
+                </div>
               </div>
 
               <CardHeader className="pb-4">

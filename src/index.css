@@ -104,7 +104,7 @@
     @apply absolute inset-0 bg-speed-gradient animate-speed-line;
   }
 
-  /* Nuevas animaciones */
+  /* Animaciones mejoradas */
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -113,6 +113,17 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
     }
   }
 
@@ -134,8 +145,30 @@
     }
   }
 
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+
+  @keyframes rotate-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   .animate-fade-in {
     animation: fade-in 0.6s ease-out;
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.5s ease-out;
   }
 
   .animate-pulse-glow {
@@ -144,6 +177,14 @@
 
   .animate-speed-line {
     animation: speed-line 3s linear infinite;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+
+  .animate-rotate-slow {
+    animation: rotate-slow 10s linear infinite;
   }
 
   /* Hover effects mejorados */
@@ -157,5 +198,31 @@
 
   .hover-glow:hover {
     box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  .hover-brightness {
+    @apply transition-all duration-300 hover:brightness-110;
+  }
+
+  /* Transiciones suaves globales */
+  .smooth-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Estados de loading y feedback */
+  .loading-pulse {
+    @apply animate-pulse bg-racing-red/20;
+  }
+
+  .success-glow {
+    @apply shadow-lg shadow-green-500/20 border-green-500/30;
+  }
+
+  .error-glow {
+    @apply shadow-lg shadow-red-500/20 border-red-500/30;
   }
 }

@@ -26,14 +26,14 @@ const levels = [
     price: 'Gratis'
   },
   {
-    id: 'professional',
-    title: 'Nivel Profesional',
+    id: 'semipro',
+    title: 'Nivel Semi-Pro',
     subtitle: 'Técnicas Intermedias y Avanzadas',
     icon: Star,
     color: 'text-racing-gold',
     bgColor: 'bg-racing-gold/10',
     borderColor: 'border-racing-gold/30',
-    description: 'Para pilotos con experiencia que buscan perfeccionar su técnica y competir a nivel profesional.',
+    description: 'Para pilotos con experiencia que buscan perfeccionar su técnica y competir a nivel semi-profesional.',
     topics: [
       'Trail braking y técnicas de frenado avanzadas',
       'Gestión de neumáticos y adherencia',
@@ -44,11 +44,11 @@ const levels = [
     ],
     duration: '8-10 semanas',
     exercises: '45 ejercicios prácticos',
-    price: '$99/mes'
+    price: 'US$150'
   },
   {
-    id: 'senior',
-    title: 'Nivel Senior',
+    id: 'pro',
+    title: 'Nivel Pro',
     subtitle: 'Maestría en Automovilismo',
     icon: Crown,
     color: 'text-racing-red',
@@ -65,7 +65,7 @@ const levels = [
     ],
     duration: '12-16 semanas',
     exercises: '70 ejercicios prácticos',
-    price: '$199/mes'
+    price: 'US$200'
   }
 ];
 

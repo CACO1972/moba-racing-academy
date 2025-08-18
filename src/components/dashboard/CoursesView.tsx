@@ -18,29 +18,32 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 12,
       students: 1240,
       instructor: 'G. Bacigalupo',
-      preview: 'available'
+      preview: 'available',
+      price: 'Gratis'
     },
     {
       id: 'circuit-mastery',
       title: 'Dominio de Circuito',
       description: 'Técnicas avanzadas para diferentes tipos de circuitos: callejeros, permanentes y mixtos. Aprende a adaptar tu estilo según las condiciones.',
-      level: 'professional' as const,
+      level: 'semipro' as const,
       duration: '6 semanas',
       lessons: 18,
       students: 890,
       instructor: 'G. Bacigalupo',
-      preview: 'available'
+      preview: 'available',
+      price: 'US$150'
     },
     {
       id: 'advanced-racing',
       title: 'Técnicas de Racing Avanzado',
       description: 'Estrategias de carrera, manejo bajo presión y técnicas de adelantamiento. Para pilotos que buscan el siguiente nivel competitivo.',
-      level: 'senior' as const,
+      level: 'pro' as const,
       duration: '8 semanas',
       lessons: 24,
       students: 567,
       instructor: 'G. Bacigalupo',
-      preview: 'available'
+      preview: 'available',
+      price: 'US$200'
     },
     {
       id: 'neurocognitive',
@@ -51,7 +54,8 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 36,
       students: 234,
       instructor: 'Dr. Performance Team',
-      preview: 'evaluation'
+      preview: 'evaluation',
+      price: 'US$100'
     },
     {
       id: 'telemetry-ai',
@@ -62,7 +66,8 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       lessons: 30,
       students: 156,
       instructor: 'AI Performance Lab',
-      preview: 'demo'
+      preview: 'demo',
+      price: 'US$150'
     }
   ];
 

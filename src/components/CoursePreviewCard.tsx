@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Play, Clock, Trophy, Users, ArrowRight } from 'lucide-react';
+import { Play, Clock, Trophy, Users, ArrowRight, DollarSign } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -8,12 +8,13 @@ interface CoursePreviewCardProps {
   id: string;
   title: string;
   description: string;
-  level: 'amateur' | 'professional' | 'senior' | 'pro';
+  level: 'amateur' | 'semipro' | 'pro';
   duration: string;
   lessons: number;
   students: number;
   instructor: string;
   preview?: string;
+  price: string;
   onSelect: (courseId: string) => void;
 }
 
@@ -27,19 +28,18 @@ const CoursePreviewCard = ({
   students,
   instructor,
   preview,
+  price,
   onSelect
 }: CoursePreviewCardProps) => {
   const levelStyles = {
     amateur: 'level-amateur',
-    professional: 'level-professional', 
-    senior: 'level-senior',
-    pro: 'level-pro'
+    semipro: 'level-professional', 
+    pro: 'level-senior'
   };
 
   const levelLabels = {
     amateur: 'Amateur',
-    professional: 'Profesional',
-    senior: 'Senior',
+    semipro: 'Semi-Pro',
     pro: 'Pro'
   };
 
@@ -51,6 +51,12 @@ const CoursePreviewCard = ({
         <div className="absolute top-4 left-4">
           <Badge className={`level-badge ${levelStyles[level]}`}>
             {levelLabels[level]}
+          </Badge>
+        </div>
+        <div className="absolute top-4 right-4">
+          <Badge className="bg-racing-red/80 text-white font-orbitron font-bold flex items-center space-x-1">
+            <DollarSign className="h-3 w-3" />
+            <span>{price}</span>
           </Badge>
         </div>
         <div className="absolute inset-0 flex items-center justify-center">
@@ -109,7 +115,7 @@ const CoursePreviewCard = ({
             onClick={() => onSelect(id)}
             className="racing-button px-4 py-2 text-sm group"
           >
-            Comenzar
+            {price === 'Gratis' ? 'Gratis' : 'Comenzar'}
             <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
