@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -28,12 +29,12 @@ const Header = () => {
               </div>
               <div>
                 <h1 className="text-xl font-orbitron font-bold text-white">Moba Racing Academy</h1>
-                <p className="text-xs text-racing-gold">   </p>
+                <p className="text-xs text-racing-gold">   </p>
               </div>
             </div>
-            {/* Moba Logo */}
+            {/* Moba Racing Academy Logo */}
             <div className="hidden md:flex items-center space-x-2 pl-4 border-l border-racing-red/30">
-              <img src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" alt="Moba" className="h-8 w-auto" />
+              <img src="/lovable-uploads/ac324965-b728-49ac-a8ea-0ee99bdd137f.png" alt="Moba Racing Academy" className="h-8 w-auto" />
               <span className="text-xs text-gray-400 font-inter">Powered by</span>
             </div>
           </div>
@@ -60,9 +61,9 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && <div className="md:hidden mt-4 pb-4 border-t border-racing-red/20">
-            {/* Moba Logo for Mobile */}
+            {/* Moba Racing Academy Logo for Mobile */}
             <div className="flex items-center justify-center space-x-2 py-4 border-b border-racing-red/20">
-              <img src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" alt="Moba" className="h-6 w-auto" />
+              <img src="/lovable-uploads/ac324965-b728-49ac-a8ea-0ee99bdd137f.png" alt="Moba Racing Academy" className="h-6 w-auto" />
               <span className="text-xs text-gray-400 font-inter">Powered by</span>
             </div>
             <nav className="flex flex-col space-y-4 mt-4">

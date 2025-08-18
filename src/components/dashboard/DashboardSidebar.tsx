@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { User } from '@supabase/supabase-js';
 import { 
@@ -37,8 +38,8 @@ const DashboardSidebar = ({ user, currentView, onViewChange, isOpen, onToggle }:
           {isOpen && (
             <div className="flex items-center space-x-3">
               <img 
-                src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" 
-                alt="Moba" 
+                src="/lovable-uploads/ac324965-b728-49ac-a8ea-0ee99bdd137f.png" 
+                alt="Moba Racing Academy" 
                 className="h-8 w-auto"
               />
               <div>
@@ -130,3 +131,4 @@ const DashboardSidebar = ({ user, currentView, onViewChange, isOpen, onToggle }:
 };
 
 export default DashboardSidebar;
+

@@ -1,3 +1,4 @@
+
 import { Mail, MapPin, Phone } from 'lucide-react';
 const Footer = () => {
   return <footer className="bg-racing-black border-t border-racing-red/20">
@@ -19,12 +20,12 @@ const Footer = () => {
               para karting, carrozados y fórmula. Desde nivel amateur hasta senior.
             </p>
             
-            {/* MORA MOTORSPORT Branding */}
+            {/* MOBA MOTORSPORT Branding */}
             <div className="flex items-center space-x-3 mb-6 p-4 bg-racing-black-light rounded-lg border border-racing-red/20">
-              <img src="/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png" alt="MORA MOTORSPORT" className="h-10 w-auto" />
+              <img src="/lovable-uploads/ac324965-b728-49ac-a8ea-0ee99bdd137f.png" alt="MOBA MOTORSPORT" className="h-10 w-auto" />
               <div>
                 <p className="text-white font-orbitron font-semibold text-sm">Powered by MOBA MOTORSPORT</p>
-                <p className="text-gray-400 font-inter text-xs">        DIRECTOR / GIUSEPPE BACIGALUPO</p>
+                <p className="text-gray-400 font-inter text-xs">        DIRECTOR / GIUSEPPE BACIGALUPO</p>
               </div>
             </div>
 
@@ -35,7 +36,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-2 text-gray-400 font-inter text-sm">
                 <Phone className="w-4 h-4 text-racing-red" />
-                <span>+569 88085850 </span>
+                <span>+569 88085850 </span>
               </div>
               <div className="flex items-center space-x-2 text-gray-400 font-inter text-sm">
                 
