@@ -1,4 +1,5 @@
-import { Book, Play, FileText, ExternalLink, Clock, Users } from 'lucide-react';
+
+import { Book, Play, FileText, ExternalLink, Clock, Users, Brain } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -27,6 +28,36 @@ const courses = [
       { type: 'exercise', title: 'Simulador de frenado básico' },
       { type: 'pdf', title: 'Guía de seguridad en pista' }
     ]
+  },
+  {
+    id: 'neurocognitive',
+    title: 'Entrenamiento Neurocognitivo',
+    description: 'Desarrolla tu potencial cerebral para la conducción deportiva con evaluación personalizada y ejercicios específicos.',
+    level: 'Profesional',
+    levelColor: 'level-professional',
+    duration: '180 min',
+    lessons: 20,
+    students: 312,
+    topics: [
+      'Evaluación neurocognitiva personalizada',
+      'Coordinación ojo-mano avanzada',
+      'Desarrollo de memoria muscular',
+      'Velocidad de reacción optimizada',
+      'Control bajo presión mental',
+      'Técnicas de concentración y focus',
+      'Visualización deportiva aplicada',
+      'Neurotracking y seguimiento visual'
+    ],
+    image: '/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png',
+    resources: [
+      { type: 'video', title: 'Evaluación Neurocognitiva Inicial', duration: '45 min' },
+      { type: 'exercise', title: 'Test de coordinación ojo-mano' },
+      { type: 'exercise', title: 'Ejercicios de neurotracking' },
+      { type: 'infographic', title: 'Mapa de habilidades cognitivas' },
+      { type: 'exercise', title: 'Simulador de reacción bajo presión' },
+      { type: 'video', title: 'Técnicas de visualización', duration: '30 min' }
+    ],
+    isNeurocognitive: true
   },
   {
     id: 'trail-braking',
@@ -158,7 +189,7 @@ const CoursesSection = () => {
         {/* Courses Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
           {courses.map((course) => (
-            <Card key={course.id} className={`racing-card overflow-hidden ${course.isProProgram ? 'ring-2 ring-purple-500/30' : ''}`}>
+            <Card key={course.id} className={`racing-card overflow-hidden ${course.isProProgram ? 'ring-2 ring-purple-500/30' : course.isNeurocognitive ? 'ring-2 ring-purple-400/30' : ''}`}>
               {/* Course Image */}
               <div className="relative h-48 bg-gradient-to-br from-racing-red/20 to-racing-black overflow-hidden">
                 <img 
@@ -174,6 +205,14 @@ const CoursesSection = () => {
                   <Badge className="absolute top-4 right-4 bg-purple-500/20 text-purple-400 border-purple-500/30">
                     Programa Exclusivo
                   </Badge>
+                )}
+                {course.isNeurocognitive && (
+                  <div className="absolute top-4 right-4 flex items-center space-x-2">
+                    <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30">
+                      Neurocognitivo
+                    </Badge>
+                    <Brain className="h-5 w-5 text-purple-400" />
+                  </div>
                 )}
               </div>
 
@@ -213,7 +252,7 @@ const CoursesSection = () => {
                   <ul className="space-y-1">
                     {course.topics.map((topic, index) => (
                       <li key={index} className="text-gray-300 font-inter text-sm flex items-center space-x-2">
-                        <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${course.isProProgram ? 'bg-purple-400' : 'bg-racing-red'}`} />
+                        <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${course.isProProgram || course.isNeurocognitive ? 'bg-purple-400' : 'bg-racing-red'}`} />
                         <span>{topic}</span>
                       </li>
                     ))}
@@ -247,8 +286,8 @@ const CoursesSection = () => {
                   </div>
                 </div>
 
-                <Button className={`w-full ${course.isProProgram ? 'bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900' : 'racing-button'}`}>
-                  {course.isProProgram ? 'Consultar Programa Pro' : 'Acceder al Curso'}
+                <Button className={`w-full ${course.isProProgram ? 'bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900' : course.isNeurocognitive ? 'bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800' : 'racing-button'}`}>
+                  {course.isProProgram ? 'Consultar Programa Pro' : course.isNeurocognitive ? 'Iniciar Evaluación' : 'Acceder al Curso'}
                 </Button>
               </CardContent>
             </Card>

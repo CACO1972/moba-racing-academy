@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Play, Clock, Trophy, Star, Lock, ExternalLink } from 'lucide-react';
+import { Play, Clock, Trophy, Star, Lock, ExternalLink, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import ProTermsDialog from '@/components/ProTermsDialog';
@@ -23,6 +24,21 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
       isPremium: false,
       rating: 4.8,
       students: 1247
+    },
+    {
+      id: 'neurocognitive',
+      title: 'Entrenamiento Neurocognitivo',
+      description: 'Desarrolla tu potencial cerebral para la conducción deportiva con evaluación personalizada',
+      level: 'Profesional',
+      duration: '10 horas',
+      lessons: 20,
+      progress: 0,
+      price: '$199',
+      image: '/lovable-uploads/aa3548df-59db-4f99-8da6-1842524800af.png',
+      isPremium: true,
+      rating: 4.9,
+      students: 312,
+      isNeurocognitive: true
     },
     {
       id: 'advanced',
@@ -108,8 +124,8 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
               />
               {course.isPremium && (
                 <div className="absolute top-3 right-3">
-                  <Badge className="bg-racing-gold/20 text-racing-gold border-racing-gold/30">
-                    {course.isProProgram ? 'Pro' : 'Premium'}
+                  <Badge className={`${course.isProProgram ? 'bg-racing-gold/20 text-racing-gold border-racing-gold/30' : course.isNeurocognitive ? 'bg-purple-500/20 text-purple-400 border-purple-500/30' : 'bg-racing-gold/20 text-racing-gold border-racing-gold/30'}`}>
+                    {course.isProProgram ? 'Pro' : course.isNeurocognitive ? 'Neurocognitivo' : 'Premium'}
                   </Badge>
                 </div>
               )}
@@ -118,6 +134,11 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
                   {course.level}
                 </Badge>
               </div>
+              {course.isNeurocognitive && (
+                <div className="absolute top-3 left-3">
+                  <Brain className="h-6 w-6 text-purple-400" />
+                </div>
+              )}
             </div>
 
             {/* Course Content */}
@@ -194,13 +215,13 @@ const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
                 ) : (
                   <Button
                     onClick={() => onCourseSelect(course.id)}
-                    className={`racing-button ${course.isPremium && course.progress === 0 ? 'opacity-75' : ''}`}
+                    className={`${course.isNeurocognitive ? 'bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900' : 'racing-button'} ${course.isPremium && course.progress === 0 ? 'opacity-75' : ''}`}
                     disabled={course.isPremium && course.progress === 0}
                   >
                     {course.isPremium && course.progress === 0 ? (
                       <>
                         <Lock className="h-4 w-4 mr-2" />
-                        Adquirir
+                        {course.isNeurocognitive ? 'Evaluación Previa' : 'Adquirir'}
                       </>
                     ) : course.progress > 0 ? (
                       <>
