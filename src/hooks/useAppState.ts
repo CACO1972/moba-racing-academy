@@ -1,9 +1,9 @@
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
-export type ViewType = 'courses' | 'lesson' | 'profile' | 'progress';
+export type ViewType = 'courses' | 'lesson' | 'progress' | 'profile';
 
-export interface AppState {
+interface AppState {
   currentView: ViewType;
   selectedCourse: string | null;
   selectedLesson: string | null;
@@ -15,30 +15,30 @@ export const useAppState = () => {
     currentView: 'courses',
     selectedCourse: null,
     selectedLesson: null,
-    sidebarOpen: true,
+    sidebarOpen: true
   });
 
-  const setCurrentView = (view: ViewType) => {
+  const setCurrentView = useCallback((view: ViewType) => {
     setState(prev => ({ ...prev, currentView: view }));
-  };
+  }, []);
 
-  const setSelectedCourse = (courseId: string | null) => {
+  const setSelectedCourse = useCallback((courseId: string | null) => {
     setState(prev => ({ ...prev, selectedCourse: courseId }));
-  };
+  }, []);
 
-  const setSelectedLesson = (lessonId: string | null) => {
+  const setSelectedLesson = useCallback((lessonId: string | null) => {
     setState(prev => ({ ...prev, selectedLesson: lessonId }));
-  };
+  }, []);
 
-  const toggleSidebar = () => {
+  const toggleSidebar = useCallback(() => {
     setState(prev => ({ ...prev, sidebarOpen: !prev.sidebarOpen }));
-  };
+  }, []);
 
   return {
     ...state,
     setCurrentView,
     setSelectedCourse,
     setSelectedLesson,
-    toggleSidebar,
+    toggleSidebar
   };
 };

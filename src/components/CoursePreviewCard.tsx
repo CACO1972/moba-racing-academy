@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { Play, Clock, Trophy, Users, ArrowRight, DollarSign } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -18,7 +18,7 @@ interface CoursePreviewCardProps {
   onSelect: (courseId: string) => void;
 }
 
-const CoursePreviewCard = ({
+const CoursePreviewCard = memo(({
   id,
   title,
   description,
@@ -43,8 +43,18 @@ const CoursePreviewCard = ({
     pro: 'Pro'
   };
 
+  const handleSelect = useCallback(() => {
+    onSelect(id);
+  }, [id, onSelect]);
+
+  const handlePlayClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    onSelect(id);
+  }, [id, onSelect]);
+
   return (
-    <div className="racing-card group hover:scale-[1.02] transition-all duration-300 overflow-hidden">
+    <div className="racing-card group hover:scale-[1.02] transition-all duration-300 overflow-hidden cursor-pointer"
+         onClick={handleSelect}>
       {/* Header con preview */}
       <div className="relative h-48 bg-gradient-to-br from-racing-black-light to-racing-black overflow-hidden">
         <div className="absolute inset-0 bg-speed-gradient opacity-10"></div>
@@ -63,7 +73,7 @@ const CoursePreviewCard = ({
           <Button
             variant="ghost"
             className="w-16 h-16 rounded-full bg-racing-red/20 hover:bg-racing-red/30 text-racing-red hover:text-white transition-all duration-300 group-hover:scale-110"
-            onClick={() => onSelect(id)}
+            onClick={handlePlayClick}
           >
             <Play className="h-8 w-8" />
           </Button>
@@ -78,10 +88,10 @@ const CoursePreviewCard = ({
       {/* Contenido */}
       <div className="p-6 space-y-4">
         <div>
-          <h3 className="font-orbitron font-bold text-white text-lg mb-2 group-hover:text-racing-gold transition-colors">
+          <h3 className="font-orbitron font-bold text-white text-lg mb-2 group-hover:text-racing-gold transition-colors line-clamp-2">
             {title}
           </h3>
-          <p className="text-racing-silver text-sm leading-relaxed">
+          <p className="text-racing-silver text-sm leading-relaxed line-clamp-3">
             {description}
           </p>
         </div>
@@ -100,20 +110,20 @@ const CoursePreviewCard = ({
           </div>
           <div className="text-center">
             <Users className="h-4 w-4 text-racing-silver mx-auto mb-1" />
-            <p className="text-xs text-white font-semibold">{students}</p>
+            <p className="text-xs text-white font-semibold">{students.toLocaleString()}</p>
             <p className="text-xs text-racing-silver">Estudiantes</p>
           </div>
         </div>
 
         {/* Instructor */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Trophy className="h-4 w-4 text-racing-gold" />
-            <span className="text-sm text-racing-silver">Por {instructor}</span>
+          <div className="flex items-center space-x-2 min-w-0">
+            <Trophy className="h-4 w-4 text-racing-gold flex-shrink-0" />
+            <span className="text-sm text-racing-silver truncate">Por {instructor}</span>
           </div>
           <Button
-            onClick={() => onSelect(id)}
-            className="racing-button px-4 py-2 text-sm group"
+            onClick={handleSelect}
+            className="racing-button px-4 py-2 text-sm group flex-shrink-0"
           >
             {price === 'Gratis' ? 'Gratis' : 'Comenzar'}
             <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -122,6 +132,8 @@ const CoursePreviewCard = ({
       </div>
     </div>
   );
-};
+});
+
+CoursePreviewCard.displayName = 'CoursePreviewCard';
 
 export default CoursePreviewCard;

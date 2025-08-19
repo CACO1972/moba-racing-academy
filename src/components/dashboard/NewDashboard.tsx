@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -15,7 +15,7 @@ interface NewDashboardProps {
   user: User;
 }
 
-const NewDashboard = ({ user }: NewDashboardProps) => {
+const NewDashboard = memo(({ user }: NewDashboardProps) => {
   const { toast } = useToast();
   const {
     currentView,
@@ -27,7 +27,7 @@ const NewDashboard = ({ user }: NewDashboardProps) => {
     toggleSidebar
   } = useAppState();
 
-  const handleSignOut = async () => {
+  const handleSignOut = useCallback(async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
       toast({
@@ -36,14 +36,14 @@ const NewDashboard = ({ user }: NewDashboardProps) => {
         variant: "destructive",
       });
     }
-  };
+  }, [toast]);
 
-  const handleCourseSelect = (courseId: string) => {
+  const handleCourseSelect = useCallback((courseId: string) => {
     setSelectedCourse(courseId);
     setCurrentView('lesson');
-  };
+  }, [setSelectedCourse, setCurrentView]);
 
-  const renderCurrentView = () => {
+  const renderCurrentView = useCallback(() => {
     switch (currentView) {
       case 'courses':
         return <CoursesView onCourseSelect={handleCourseSelect} />;
@@ -83,10 +83,10 @@ const NewDashboard = ({ user }: NewDashboardProps) => {
       default:
         return <CoursesView onCourseSelect={handleCourseSelect} />;
     }
-  };
+  }, [currentView, handleCourseSelect]);
 
   return (
-    <div className="min-h-screen bg-racing-black flex">
+    <div className="min-h-screen bg-racing-black flex overflow-hidden">
       {/* Sidebar */}
       <DashboardSidebar
         user={user}
@@ -97,29 +97,31 @@ const NewDashboard = ({ user }: NewDashboardProps) => {
       />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Top Bar */}
-        <header className="bg-racing-black-light border-b border-racing-red/20 p-4">
+        <header className="bg-racing-black-light border-b border-racing-red/20 p-4 flex-shrink-0">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-6 min-w-0">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={toggleSidebar}
-                className="text-racing-silver hover:text-white md:hidden"
+                className="text-racing-silver hover:text-white md:hidden flex-shrink-0"
               >
                 <Menu className="h-4 w-4" />
               </Button>
               
-              <NavigationBreadcrumbs
-                currentView={currentView}
-                selectedCourse={selectedCourse}
-                selectedLesson={selectedLesson}
-                onNavigate={setCurrentView}
-              />
+              <div className="min-w-0 flex-1">
+                <NavigationBreadcrumbs
+                  currentView={currentView}
+                  selectedCourse={selectedCourse}
+                  selectedLesson={selectedLesson}
+                  onNavigate={setCurrentView}
+                />
+              </div>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 flex-shrink-0">
               {/* Audio Controls para desktop */}
               <div className="hidden lg:block">
                 <EngineAudioControls />
@@ -131,26 +133,28 @@ const NewDashboard = ({ user }: NewDashboardProps) => {
                 className="text-racing-silver hover:text-racing-red hover:bg-racing-black-light transition-all duration-300"
               >
                 <LogOut className="h-4 w-4 mr-2" />
-                Salir
+                <span className="hidden sm:inline">Salir</span>
               </Button>
             </div>
           </div>
         </header>
 
         {/* Content Area */}
-        <main className="flex-1 p-6 overflow-auto">
+        <main className="flex-1 p-4 md:p-6 overflow-auto">
           <div className="max-w-7xl mx-auto">
             {renderCurrentView()}
           </div>
         </main>
 
         {/* Audio Controls para mobile */}
-        <div className="lg:hidden border-t border-racing-red/20 p-4">
+        <div className="lg:hidden border-t border-racing-red/20 p-4 flex-shrink-0">
           <EngineAudioControls />
         </div>
       </div>
     </div>
   );
-};
+});
+
+NewDashboard.displayName = 'NewDashboard';
 
 export default NewDashboard;
