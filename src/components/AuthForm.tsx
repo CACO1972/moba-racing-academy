@@ -55,50 +55,52 @@ const AuthForm = ({ mode, onToggleMode }: AuthFormProps) => {
   };
 
   return (
-    <div className="racing-card p-6 max-w-md mx-auto">
-      <h2 className="text-2xl font-orbitron font-bold text-white mb-6 text-center">
+    <div className="racing-card p-4 sm:p-6 max-w-md mx-auto w-full">
+      <h2 className="text-xl sm:text-2xl font-orbitron font-bold text-white mb-4 sm:mb-6 text-center">
         {mode === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta'}
       </h2>
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <Label htmlFor="email" className="text-white">Email</Label>
+          <Label htmlFor="email" className="text-white text-sm sm:text-base">Email</Label>
           <Input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="bg-racing-black-light border-racing-red/30 text-white"
+            className="bg-racing-black-light border-racing-red/30 text-white mt-1 h-10 sm:h-12 text-sm sm:text-base"
+            placeholder="tu@email.com"
           />
         </div>
         
         <div>
-          <Label htmlFor="password" className="text-white">Contraseña</Label>
+          <Label htmlFor="password" className="text-white text-sm sm:text-base">Contraseña</Label>
           <Input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="bg-racing-black-light border-racing-red/30 text-white"
+            className="bg-racing-black-light border-racing-red/30 text-white mt-1 h-10 sm:h-12 text-sm sm:text-base"
+            placeholder="••••••••"
           />
         </div>
         
         <Button 
           type="submit" 
-          className="racing-button w-full"
+          className="racing-button w-full h-10 sm:h-12 text-sm sm:text-base"
           disabled={loading}
         >
           {loading ? 'Procesando...' : (mode === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta')}
         </Button>
       </form>
       
-      <p className="text-center mt-4 text-gray-400">
+      <p className="text-center mt-4 text-gray-400 text-sm sm:text-base">
         {mode === 'login' ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}
         <button
           onClick={onToggleMode}
-          className="text-racing-red hover:text-racing-gold ml-2 font-semibold"
+          className="text-racing-red hover:text-racing-gold ml-2 font-semibold underline"
         >
           {mode === 'login' ? 'Crear cuenta' : 'Iniciar sesión'}
         </button>
