@@ -1,282 +1,312 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Racing Academy Design System */
-
 @layer base {
   :root {
-    --background: 10 10% 8%;
-    --foreground: 0 0% 98%;
-
-    --card: 15 15% 12%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 15 15% 12%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 74% 42%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 20 20% 18%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 20 20% 18%;
-    --muted-foreground: 0 0% 63%;
-
-    --accent: 43 96% 56%;
-    --accent-foreground: 20 20% 18%;
-
+    --background: 220 13% 7%;
+    --foreground: 0 0% 95%;
+    --card: 220 13% 9%;
+    --card-foreground: 0 0% 95%;
+    --popover: 220 13% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 64 100% 50%;
+    --primary-foreground: 220 13% 7%;
+    --secondary: 217 19% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 217 19% 15%;
+    --muted-foreground: 215 15% 65%;
+    --accent: 64 100% 50%;
+    --accent-foreground: 220 13% 7%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
+    --border: 217 19% 20%;
+    --input: 217 19% 15%;
+    --ring: 64 100% 50%;
+    --chart-1: 64 100% 50%;
+    --chart-2: 0 84% 60%;
+    --chart-3: 217 19% 35%;
+    --chart-4: 64 80% 40%;
+    --chart-5: 0 60% 45%;
+    --radius: 0.75rem;
+    --sidebar-background: 220 13% 9%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 64 100% 50%;
+    --sidebar-primary-foreground: 220 13% 7%;
+    --sidebar-accent: 217 19% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 217 19% 20%;
+    --sidebar-ring: 64 100% 50%;
 
-    --border: 20 20% 18%;
-    --input: 20 20% 18%;
-    --ring: 0 74% 42%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 15 15% 12%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 74% 42%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 20 20% 18%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 20 20% 18%;
-    --sidebar-ring: 0 74% 42%;
+    /* Custom design tokens */
+    --racing-dark: 220 13% 7%;
+    --racing-darker: 220 13% 4%;
+    --racing-surface: 220 13% 9%;
+    --racing-surface-light: 217 19% 15%;
+    --racing-border: 217 19% 20%;
+    --racing-text: 0 0% 95%;
+    --racing-text-muted: 215 15% 65%;
+    --racing-accent: 64 100% 50%;
+    --racing-accent-dark: 64 100% 40%;
+    --racing-red: 0 84% 60%;
+    --racing-red-dark: 0 84% 45%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--racing-darker)) 0%, hsl(var(--racing-dark)) 40%, hsl(var(--racing-surface)) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--racing-accent)) 0%, hsl(var(--racing-accent-dark)) 100%);
+    --gradient-red: linear-gradient(135deg, hsl(var(--racing-red)) 0%, hsl(var(--racing-red-dark)) 100%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(var(--racing-accent) / 0.3);
+    --shadow-glow-red: 0 0 40px hsl(var(--racing-red) / 0.3);
+    --shadow-dramatic: 0 20px 60px -20px hsl(var(--racing-darker) / 0.8);
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
-}
 
-@layer base {
+  .dark {
+    --background: 220 13% 7%;
+    --foreground: 0 0% 95%;
+    --card: 220 13% 9%;
+    --card-foreground: 0 0% 95%;
+    --popover: 220 13% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 64 100% 50%;
+    --primary-foreground: 220 13% 7%;
+    --secondary: 217 19% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 217 19% 15%;
+    --muted-foreground: 215 15% 65%;
+    --accent: 64 100% 50%;
+    --accent-foreground: 220 13% 7%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 19% 20%;
+    --input: 217 19% 15%;
+    --ring: 64 100% 50%;
+    --chart-1: 64 100% 50%;
+    --chart-2: 0 84% 60%;
+    --chart-3: 217 19% 35%;
+    --chart-4: 64 80% 40%;
+    --chart-5: 0 60% 45%;
+    --sidebar-background: 220 13% 9%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 64 100% 50%;
+    --sidebar-primary-foreground: 220 13% 7%;
+    --sidebar-accent: 217 19% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 217 19% 20%;
+    --sidebar-ring: 64 100% 50%;
+  }
+
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
 
   body {
-    @apply bg-background text-foreground font-inter antialiased;
+    background-color: hsl(var(--racing-dark));
+    color: hsl(var(--racing-text));
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-orbitron;
-  }
-
-  /* Utilidades de texto */
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-family: 'Orbitron', monospace;
   }
 }
 
 @layer components {
-  .racing-card {
-    @apply bg-gradient-to-br from-racing-black via-racing-black-light to-racing-black 
-           border border-racing-red/20 rounded-lg shadow-xl 
-           hover:shadow-racing-red/20 hover:shadow-2xl 
-           transition-all duration-300 will-change-transform;
+  /* Bold Typography System */
+  .text-hero {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
   }
 
-  .racing-button {
-    @apply bg-racing-gradient text-white font-orbitron font-semibold 
-           px-6 py-3 rounded-lg shadow-lg hover:scale-105 
-           transition-all duration-300 hover:animate-pulse-glow
-           will-change-transform;
+  .text-display {
+    font-family: 'Orbitron', monospace;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
   }
 
-  .level-badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-orbitron font-semibold;
+  .text-accent {
+    color: hsl(var(--racing-accent));
   }
 
-  .level-amateur {
-    @apply bg-green-500/20 text-green-400 border border-green-500/30;
+  .text-gradient {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .level-professional {
-    @apply bg-racing-gold/20 text-racing-gold border border-racing-gold/30;
+  .text-red-gradient {
+    background: var(--gradient-red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .level-senior {
+  /* Button System */
+  .btn-primary {
+    @apply bg-gradient-accent text-black font-orbitron font-bold 
+           px-8 py-4 rounded-lg shadow-glow
+           hover:shadow-glow hover:scale-[1.02]
+           transition-smooth will-change-transform;
+  }
+
+  .btn-secondary {
+    @apply bg-racing-surface border-2 border-racing-accent text-racing-accent 
+           font-orbitron font-bold px-8 py-4 rounded-lg
+           hover:bg-racing-accent hover:text-black hover:shadow-glow
+           transition-smooth will-change-transform;
+  }
+
+  .btn-red {
+    @apply bg-gradient-red text-white font-orbitron font-bold 
+           px-8 py-4 rounded-lg shadow-glow-red
+           hover:shadow-glow-red hover:scale-[1.02]
+           transition-smooth will-change-transform;
+  }
+
+  /* Card System */
+  .card-dramatic {
+    @apply bg-racing-surface border border-racing-border rounded-lg 
+           shadow-dramatic backdrop-blur-sm
+           hover:border-racing-accent/50 hover:shadow-glow
+           transition-smooth will-change-transform;
+  }
+
+  .card-glow {
+    @apply bg-racing-surface/80 border border-racing-accent/20 rounded-lg 
+           shadow-glow backdrop-blur-md
+           hover:border-racing-accent/40 hover:shadow-glow
+           transition-smooth;
+  }
+
+  /* Racing Specific Components */
+  .racing-badge {
+    @apply inline-flex items-center px-4 py-2 rounded-full 
+           text-xs font-orbitron font-bold uppercase tracking-wider;
+  }
+
+  .badge-accent {
+    @apply bg-racing-accent/20 text-racing-accent border border-racing-accent/30;
+  }
+
+  .badge-red {
     @apply bg-racing-red/20 text-racing-red border border-racing-red/30;
+  }
+
+  .badge-pro {
+    @apply bg-gradient-accent text-black border-0;
+  }
+
+  /* Dramatic Effects */
+  .glow-effect {
+    @apply relative;
+  }
+
+  .glow-effect::before {
+    content: '';
+    @apply absolute -inset-1 bg-gradient-accent rounded-lg blur opacity-30 -z-10;
   }
 
   .speed-lines {
     @apply relative overflow-hidden;
   }
 
-  .speed-lines::before {
+  .speed-lines::after {
     content: '';
-    @apply absolute inset-0 bg-speed-gradient animate-speed-line;
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-racing-accent/10 to-transparent
+           animate-speed-line;
   }
 
-  /* Animaciones optimizadas */
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Utility Classes */
+  .backdrop-dramatic {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
 
-  @keyframes slide-in {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  .text-shadow-dramatic {
+    text-shadow: 0 0 20px hsl(var(--racing-accent) / 0.5);
   }
 
-  @keyframes pulse-glow {
-    0%, 100% {
-      box-shadow: 0 0 5px rgba(220, 38, 38, 0.5);
-    }
-    50% {
-      box-shadow: 0 0 20px rgba(220, 38, 38, 0.8), 0 0 30px rgba(220, 38, 38, 0.5);
-    }
-  }
-
-  @keyframes speed-line {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  @keyframes bounce-subtle {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-2px);
-    }
-  }
-
-  @keyframes rotate-slow {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  /* Clases de animación optimizadas */
-  .animate-fade-in {
-    animation: fade-in 0.6s ease-out forwards;
-  }
-
-  .animate-slide-in {
-    animation: slide-in 0.5s ease-out forwards;
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  .animate-speed-line {
-    animation: speed-line 3s linear infinite;
-  }
-
-  .animate-bounce-subtle {
-    animation: bounce-subtle 2s ease-in-out infinite;
-  }
-
-  .animate-rotate-slow {
-    animation: rotate-slow 10s linear infinite;
-  }
-
-  /* Hover effects optimizados */
-  .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl will-change-transform;
-  }
-
-  .hover-glow {
-    @apply transition-all duration-300;
-  }
-
-  .hover-glow:hover {
-    box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
-  }
-
-  .hover-scale {
-    @apply transition-transform duration-300 hover:scale-105 will-change-transform;
-  }
-
-  .hover-brightness {
-    @apply transition-all duration-300 hover:brightness-110;
-  }
-
-  /* Transiciones suaves globales */
-  .smooth-transition {
-    @apply transition-all duration-300 ease-in-out;
-  }
-
-  /* Estados de loading y feedback optimizados */
-  .loading-pulse {
-    @apply animate-pulse bg-racing-red/20;
-  }
-
-  .success-glow {
-    @apply shadow-lg shadow-green-500/20 border-green-500/30;
-  }
-
-  .error-glow {
-    @apply shadow-lg shadow-red-500/20 border-red-500/30;
-  }
-
-  /* Optimizaciones de rendimiento */
-  .gpu-accelerated {
-    transform: translateZ(0);
-    will-change: transform;
-  }
-
-  /* Mejoras para dispositivos móviles */
-  @media (max-width: 768px) {
-    .racing-card {
-      @apply hover:scale-100 active:scale-95;
-    }
-    
-    .racing-button {
-      @apply hover:scale-100 active:scale-95;
-    }
+  .gradient-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-racing-dark via-transparent to-transparent;
   }
 }
 
-/* Scrollbar personalizado */
+/* Animations */
+@keyframes speed-line {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: var(--shadow-glow);
+  }
+  50% {
+    box-shadow: 0 0 60px hsl(var(--racing-accent) / 0.5);
+  }
+}
+
+@keyframes text-glow {
+  0%, 100% {
+    text-shadow: 0 0 10px hsl(var(--racing-accent) / 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px hsl(var(--racing-accent) / 0.8);
+  }
+}
+
+.animate-speed-line {
+  animation: speed-line 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-text-glow {
+  animation: text-glow 2s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(20, 20, 20, 0.3);
+  background: hsl(var(--racing-darker));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(220, 38, 38, 0.5);
+  background: hsl(var(--racing-accent) / 0.5);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(220, 38, 38, 0.7);
+  background: hsl(var(--racing-accent) / 0.8);
 }
 
-/* Optimización de fuentes */
+/* Font Loading Optimization */
 @font-face {
   font-family: 'Orbitron';
   font-display: swap;

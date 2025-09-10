@@ -1,8 +1,7 @@
-
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,104 +10,88 @@ const Header = () => {
   const handleGetStarted = () => {
     const authSection = document.getElementById('auth-section');
     if (authSection) {
-      authSection.scrollIntoView({
-        behavior: 'smooth'
-      });
+      authSection.scrollIntoView({ behavior: 'smooth' });
     } else {
       navigate('/auth');
     }
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-racing-black/95 backdrop-blur-sm border-b border-racing-red/20">
-      <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo - Mobile Optimized */}
-          <div className="flex items-center space-x-2 sm:space-x-4 min-w-0">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-racing-gradient rounded-lg flex items-center justify-center">
-                <span className="text-white font-orbitron font-bold text-sm sm:text-lg">M</span>
-              </div>
-              <div className="min-w-0">
-                <h1 className="text-sm sm:text-xl font-orbitron font-bold text-white truncate">Moba Racing Academy</h1>
-                <p className="text-xs text-racing-gold hidden sm:block">   </p>
-              </div>
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-dramatic border-b border-racing-border/50">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          
+          {/* Logo */}
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-accent rounded-lg flex items-center justify-center shadow-glow">
+              <span className="text-black font-orbitron font-black text-lg">R</span>
             </div>
-            
-            {/* Logo for larger screens */}
-            <div className="hidden lg:flex items-center space-x-2 pl-4 border-l border-racing-red/30">
-              <img 
-                src="/lovable-uploads/5e67185b-203b-4c7a-820c-2000a2aa613a.png" 
-                alt="Racing Academy" 
-                className="h-8 w-auto object-contain"
-              />
+            <div className="hidden sm:block">
+              <span className="text-display text-xl text-racing-text">Racing</span>
+              <span className="text-display text-xl text-gradient ml-1">Academy</span>
             </div>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            <a href="#cursos" className="text-white hover:text-racing-red transition-colors font-inter text-sm lg:text-base">Cursos</a>
-            <a href="#niveles" className="text-white hover:text-racing-red transition-colors font-inter text-sm lg:text-base">Niveles</a>
-            <a href="#recursos" className="text-white hover:text-racing-red transition-colors font-inter text-sm lg:text-base">Recursos</a>
+          <nav className="hidden md:flex items-center space-x-8">
+            <a href="#cursos" className="text-racing-text hover:text-racing-accent font-orbitron font-medium transition-colors">
+              Cursos
+            </a>
+            <a href="#niveles" className="text-racing-text hover:text-racing-accent font-orbitron font-medium transition-colors">
+              Niveles
+            </a>
+            <a href="#recursos" className="text-racing-text hover:text-racing-accent font-orbitron font-medium transition-colors">
+              Recursos
+            </a>
           </nav>
 
-          {/* CTA Button - Hidden on mobile */}
+          {/* Desktop CTA */}
           <div className="hidden md:block">
-            <Button className="racing-button text-sm lg:text-base px-4 lg:px-6 py-2 lg:py-3" onClick={handleGetStarted}>
+            <Button onClick={handleGetStarted} className="btn-primary">
               Comenzar Ahora
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-white p-2 hover:bg-racing-red/10 rounded-lg transition-colors" 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
+            className="md:hidden p-2 rounded-lg bg-racing-surface border border-racing-border text-racing-text hover:text-racing-accent transition-colors"
           >
-            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-racing-red/20 animate-fade-in">
-            {/* Logo for Mobile Menu */}
-            <div className="flex items-center justify-center space-x-2 py-4 border-b border-racing-red/20">
-              <img 
-                src="/lovable-uploads/5e67185b-203b-4c7a-820c-2000a2aa613a.png" 
-                alt="Racing Academy" 
-                className="h-6 w-auto object-contain"
-              />
-              <span className="text-xs text-gray-400 font-inter">Powered by</span>
-            </div>
-            <nav className="flex flex-col space-y-4 mt-4">
+          <div className="md:hidden py-4 border-t border-racing-border/50 backdrop-dramatic">
+            <nav className="flex flex-col space-y-4">
               <a 
                 href="#cursos" 
-                className="text-white hover:text-racing-red transition-colors font-inter text-base py-2 px-4 hover:bg-racing-red/10 rounded-lg"
+                className="text-racing-text hover:text-racing-accent font-orbitron font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Cursos
               </a>
               <a 
                 href="#niveles" 
-                className="text-white hover:text-racing-red transition-colors font-inter text-base py-2 px-4 hover:bg-racing-red/10 rounded-lg"
+                className="text-racing-text hover:text-racing-accent font-orbitron font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Niveles
               </a>
               <a 
                 href="#recursos" 
-                className="text-white hover:text-racing-red transition-colors font-inter text-base py-2 px-4 hover:bg-racing-red/10 rounded-lg"
+                className="text-racing-text hover:text-racing-accent font-orbitron font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Recursos
               </a>
               <Button 
-                className="racing-button mt-4 w-full text-base py-3" 
                 onClick={() => {
                   handleGetStarted();
                   setIsMenuOpen(false);
-                }}
+                }} 
+                className="btn-primary mt-4"
               >
                 Comenzar Ahora
               </Button>

@@ -67,16 +67,19 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Colores personalizados de Racing
+				// New racing design system colors
 				racing: {
-					red: '#DC2626',
-					'red-dark': '#B91C1C',
-					black: '#0F0F0F',
-					'black-light': '#1F1F1F',
-					gold: '#FBBF24',
-					'gold-dark': '#F59E0B',
-					silver: '#9CA3AF',
-					white: '#FFFFFF'
+					dark: 'hsl(var(--racing-dark))',
+					darker: 'hsl(var(--racing-darker))',
+					surface: 'hsl(var(--racing-surface))',
+					'surface-light': 'hsl(var(--racing-surface-light))',
+					border: 'hsl(var(--racing-border))',
+					text: 'hsl(var(--racing-text))',
+					'text-muted': 'hsl(var(--racing-text-muted))',
+					accent: 'hsl(var(--racing-accent))',
+					'accent-dark': 'hsl(var(--racing-accent-dark))',
+					red: 'hsl(var(--racing-red))',
+					'red-dark': 'hsl(var(--racing-red-dark))'
 				}
 			},
 			borderRadius: {
@@ -118,8 +121,18 @@ export default {
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite'
 			},
 			backgroundImage: {
-				'racing-gradient': 'linear-gradient(135deg, #DC2626 0%, #B91C1C 50%, #0F0F0F 100%)',
-				'speed-gradient': 'linear-gradient(90deg, transparent 0%, rgba(220, 38, 38, 0.1) 50%, transparent 100%)'
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-accent': 'var(--gradient-accent)',
+				'gradient-red': 'var(--gradient-red)',
+				'racing-texture': "url('/src/assets/racing-texture-bg.jpg')"
+			},
+			boxShadow: {
+				'glow': 'var(--shadow-glow)',
+				'glow-red': 'var(--shadow-glow-red)',
+				'dramatic': 'var(--shadow-dramatic)'
+			},
+			transitionTimingFunction: {
+				'smooth': 'var(--transition-smooth)'
 			}
 		}
 	},
