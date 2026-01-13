@@ -158,21 +158,21 @@
     @apply bg-gradient-accent text-black font-orbitron font-bold 
            px-8 py-4 rounded-lg shadow-glow
            hover:shadow-glow hover:scale-[1.02]
-           transition-smooth will-change-transform;
+           transition-all duration-300 ease-out will-change-transform;
   }
 
   .btn-secondary {
     @apply bg-racing-surface border-2 border-racing-accent text-racing-accent 
            font-orbitron font-bold px-8 py-4 rounded-lg
            hover:bg-racing-accent hover:text-black hover:shadow-glow
-           transition-smooth will-change-transform;
+           transition-all duration-300 ease-out will-change-transform;
   }
 
   .btn-red {
     @apply bg-gradient-red text-white font-orbitron font-bold 
            px-8 py-4 rounded-lg shadow-glow-red
            hover:shadow-glow-red hover:scale-[1.02]
-           transition-smooth will-change-transform;
+           transition-all duration-300 ease-out will-change-transform;
   }
 
   /* Card System */
@@ -180,14 +180,14 @@
     @apply bg-racing-surface border border-racing-border rounded-lg 
            shadow-dramatic backdrop-blur-sm
            hover:border-racing-accent/50 hover:shadow-glow
-           transition-smooth will-change-transform;
+           transition-all duration-300 ease-out will-change-transform;
   }
 
   .card-glow {
     @apply bg-racing-surface/80 border border-racing-accent/20 rounded-lg 
            shadow-glow backdrop-blur-md
            hover:border-racing-accent/40 hover:shadow-glow
-           transition-smooth;
+           transition-all duration-300 ease-out;
   }
 
   /* Racing Specific Components */
