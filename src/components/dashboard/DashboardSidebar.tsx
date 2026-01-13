@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { User } from '@supabase/supabase-js';
 import { 
   BookOpen, 
   Trophy, 
@@ -16,7 +15,7 @@ import { ViewType } from '@/hooks/useAppState';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface DashboardSidebarProps {
-  user: User;
+  user?: { email?: string };
   currentView: ViewType;
   onViewChange: (view: ViewType) => void;
   isOpen: boolean;
@@ -25,6 +24,7 @@ interface DashboardSidebarProps {
 
 const DashboardSidebar = ({ user, currentView, onViewChange, isOpen, onToggle }: DashboardSidebarProps) => {
   const isMobile = useIsMobile();
+  const userEmail = user?.email || 'piloto@racingacademy.com';
   
   const menuItems = [
     { id: 'courses' as ViewType, label: 'Cursos', icon: BookOpen, color: 'text-racing-red' },
@@ -71,11 +71,11 @@ const DashboardSidebar = ({ user, currentView, onViewChange, isOpen, onToggle }:
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-racing-gradient rounded-full flex items-center justify-center">
               <span className="text-white font-orbitron font-bold text-sm sm:text-base">
-                {user.email?.charAt(0).toUpperCase()}
+                {userEmail.charAt(0).toUpperCase()}
               </span>
             </div>
             <div className="min-w-0">
-              <p className="text-white font-semibold text-xs sm:text-sm truncate">{user.email}</p>
+              <p className="text-white font-semibold text-xs sm:text-sm truncate">{userEmail}</p>
               <div className="flex items-center space-x-1">
                 <Trophy className="h-3 w-3 text-racing-gold" />
                 <span className="text-xs text-racing-gold">Nivel Amateur</span>
