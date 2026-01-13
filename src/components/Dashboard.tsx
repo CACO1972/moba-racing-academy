@@ -8,6 +8,7 @@ import { useAppState } from '@/hooks/useAppState';
 import { useIsMobile } from '@/hooks/use-mobile';
 import DashboardSidebar from './dashboard/DashboardSidebar';
 import CoursesView from './dashboard/CoursesView';
+import LessonViewer from './dashboard/LessonViewer';
 import NavigationBreadcrumbs from './NavigationBreadcrumbs';
 import EngineAudioControls from './EngineAudioControls';
 
@@ -29,6 +30,17 @@ const Dashboard = memo(() => {
     setSelectedCourse(courseId);
     setCurrentView('lesson');
   }, [setSelectedCourse, setCurrentView]);
+
+  const handleLessonBack = useCallback(() => {
+    setCurrentView('courses');
+  }, [setCurrentView]);
+
+  const handleLessonComplete = useCallback(() => {
+    toast({
+      title: "¡Lección completada!",
+      description: "Has completado esta lección exitosamente.",
+    });
+  }, [toast]);
 
   const renderCurrentView = useCallback(() => {
     switch (currentView) {
@@ -58,19 +70,16 @@ const Dashboard = memo(() => {
         );
       case 'lesson':
         return (
-          <div className="space-y-6 animate-fade-in">
-            <div className="racing-card p-6 sm:p-8 text-center">
-              <h2 className="font-orbitron font-bold text-white text-xl sm:text-2xl mb-4">
-                Vista de Lección
-              </h2>
-              <p className="text-racing-silver text-sm sm:text-base">En desarrollo - Próximamente</p>
-            </div>
-          </div>
+          <LessonViewer
+            lessonId={selectedLesson || undefined}
+            onBack={handleLessonBack}
+            onComplete={handleLessonComplete}
+          />
         );
       default:
         return <CoursesView onCourseSelect={handleCourseSelect} />;
     }
-  }, [currentView, handleCourseSelect]);
+  }, [currentView, handleCourseSelect, handleLessonBack, handleLessonComplete, selectedLesson]);
 
   // Create a mock user object for the sidebar
   const mockUser = {
