@@ -11,66 +11,105 @@ import {
   Clock,
   BookOpen,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { useLesson, useLessons, useCourse } from '@/hooks/useCourses';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface LessonViewerProps {
   lessonId?: string;
+  courseId?: string;
   onBack?: () => void;
-  onNext?: () => void;
+  onLessonChange?: (lessonId: string) => void;
   onComplete?: () => void;
 }
 
-const LessonViewer = ({ lessonId, onBack, onNext, onComplete }: LessonViewerProps) => {
+const LessonViewer = ({ lessonId, courseId, onBack, onLessonChange, onComplete }: LessonViewerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(35);
   const [activeTab, setActiveTab] = useState<'content' | 'notes' | 'resources'>('content');
 
-  // Mock lesson data
-  const lesson = {
-    title: 'Técnicas de Frenado Avanzado',
-    course: 'Conducción Deportiva Pro',
-    duration: '15:30',
-    description: 'Aprende las técnicas de frenado utilizadas por los pilotos profesionales para maximizar el control y la velocidad en curvas.',
-    videoUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop',
-    content: `
-## Objetivos de la Lección
+  // Fetch lesson data from Supabase
+  const { data: lesson, isLoading: lessonLoading } = useLesson(lessonId || '');
+  const { data: course, isLoading: courseLoading } = useCourse(courseId || '');
+  const { data: lessons, isLoading: lessonsLoading } = useLessons(courseId || '');
 
-En esta lección aprenderás:
-- **Trail Braking**: La técnica de mantener presión en el freno mientras entras en la curva
-- **Threshold Braking**: Cómo frenar al límite de adherencia sin bloquear las ruedas
-- **Brake Balance**: Ajuste del balance de frenado según las condiciones
+  const currentLessonIndex = lessons?.findIndex(l => l.id === lessonId) ?? -1;
+  const previousLesson = currentLessonIndex > 0 ? lessons?.[currentLessonIndex - 1] : null;
+  const nextLesson = currentLessonIndex < (lessons?.length ?? 0) - 1 ? lessons?.[currentLessonIndex + 1] : null;
 
-## Conceptos Clave
+  const handlePrevious = () => {
+    if (previousLesson && onLessonChange) {
+      onLessonChange(previousLesson.id);
+    }
+  };
 
-### Trail Braking
-El trail braking es una técnica avanzada donde el piloto continúa frenando mientras gira el volante. Esto transfiere peso al eje delantero, aumentando el agarre de los neumáticos delanteros.
-
-### Puntos de Frenado
-- Identifica referencias visuales en la pista
-- Mantén consistencia en cada vuelta
-- Adapta según las condiciones del asfalto
-
-## Práctica Recomendada
-
-1. Comienza con frenadas suaves y progresivas
-2. Incrementa gradualmente la intensidad
-3. Practica en diferentes condiciones de pista
-    `,
-    resources: [
-      { name: 'Guía de Frenado PDF', type: 'pdf' },
-      { name: 'Video: Análisis Telemetría', type: 'video' },
-      { name: 'Ejercicios Prácticos', type: 'doc' }
-    ]
+  const handleNext = () => {
+    if (nextLesson && onLessonChange) {
+      onLessonChange(nextLesson.id);
+    }
   };
 
   const tabs = [
     { id: 'content', label: 'Contenido', icon: BookOpen },
     { id: 'notes', label: 'Notas', icon: BookOpen },
     { id: 'resources', label: 'Recursos', icon: BookOpen }
+  ];
+
+  const isLoading = lessonLoading || courseLoading || lessonsLoading;
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6 animate-fade-in">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Skeleton className="h-8 w-20" />
+            <div>
+              <Skeleton className="h-4 w-32 mb-2" />
+              <Skeleton className="h-8 w-64" />
+            </div>
+          </div>
+          <Skeleton className="h-6 w-20" />
+        </div>
+        <Skeleton className="aspect-video w-full rounded-lg" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <Skeleton className="h-64 w-full rounded-lg" />
+          </div>
+          <Skeleton className="h-64 w-full rounded-lg" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!lesson) {
+    return (
+      <div className="space-y-6 animate-fade-in">
+        <div className="racing-card p-8 text-center">
+          <h2 className="font-orbitron font-bold text-white text-xl mb-4">
+            Lección no encontrada
+          </h2>
+          <p className="text-racing-silver mb-6">
+            Selecciona una lección del curso para comenzar.
+          </p>
+          <Button onClick={onBack} className="btn-primary">
+            <ChevronLeft className="h-4 w-4 mr-2" />
+            Volver a cursos
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // Mock resources - in a real app these would come from the database
+  const resources = [
+    { name: 'Guía de la Lección PDF', type: 'pdf' },
+    { name: 'Video Complementario', type: 'video' },
+    { name: 'Ejercicios Prácticos', type: 'doc' }
   ];
 
   return (
@@ -88,7 +127,7 @@ El trail braking es una técnica avanzada donde el piloto continúa frenando mie
             Volver
           </Button>
           <div>
-            <p className="text-racing-accent text-sm font-medium">{lesson.course}</p>
+            <p className="text-racing-accent text-sm font-medium">{course?.title || 'Curso'}</p>
             <h1 className="text-xl sm:text-2xl font-orbitron font-bold text-white">
               {lesson.title}
             </h1>
@@ -96,7 +135,7 @@ El trail braking es una técnica avanzada donde el piloto continúa frenando mie
         </div>
         <div className="flex items-center gap-2">
           <Clock className="h-4 w-4 text-racing-silver" />
-          <span className="text-racing-silver text-sm">{lesson.duration}</span>
+          <span className="text-racing-silver text-sm">15:00</span>
         </div>
       </div>
 
@@ -105,7 +144,7 @@ El trail braking es una técnica avanzada donde el piloto continúa frenando mie
         {/* Video Container */}
         <div className="relative aspect-video bg-racing-black">
           <img 
-            src={lesson.videoUrl}
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop"
             alt="Lesson video thumbnail"
             className="w-full h-full object-cover opacity-80"
           />
@@ -161,7 +200,7 @@ El trail braking es una técnica avanzada donde el piloto continúa frenando mie
                 >
                   {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                 </Button>
-                <span className="text-white text-sm ml-2">5:25 / {lesson.duration}</span>
+                <span className="text-white text-sm ml-2">5:25 / 15:00</span>
               </div>
               <Button
                 variant="ghost"
@@ -204,7 +243,7 @@ El trail braking es una técnica avanzada donde el piloto continúa frenando mie
                   {lesson.description}
                 </p>
                 <div className="text-racing-text whitespace-pre-wrap font-inter leading-relaxed">
-                  {lesson.content.split('\n').map((line, i) => {
+                  {lesson.content?.split('\n').map((line, i) => {
                     if (line.startsWith('## ')) {
                       return <h2 key={i} className="text-xl font-orbitron font-bold text-white mt-6 mb-4">{line.replace('## ', '')}</h2>;
                     }
@@ -263,7 +302,7 @@ El trail braking es una técnica avanzada donde el piloto continúa frenando mie
             {activeTab === 'resources' && (
               <div className="space-y-4">
                 <h3 className="font-orbitron font-bold text-white mb-4">Recursos de la Lección</h3>
-                {lesson.resources.map((resource, index) => (
+                {resources.map((resource, index) => (
                   <div
                     key={index}
                     className="flex items-center justify-between p-4 bg-racing-surface rounded-lg border border-racing-border hover:border-racing-accent/50 transition-colors cursor-pointer"
@@ -314,16 +353,18 @@ El trail braking es una técnica avanzada donde el piloto continúa frenando mie
             <div className="flex gap-2">
               <Button
                 variant="outline"
-                onClick={onBack}
-                className="flex-1 border-racing-border text-racing-silver hover:text-white hover:bg-racing-surface"
+                onClick={handlePrevious}
+                disabled={!previousLesson}
+                className="flex-1 border-racing-border text-racing-silver hover:text-white hover:bg-racing-surface disabled:opacity-50"
               >
                 <ChevronLeft className="h-4 w-4 mr-1" />
                 Anterior
               </Button>
               <Button
                 variant="outline"
-                onClick={onNext}
-                className="flex-1 border-racing-border text-racing-silver hover:text-white hover:bg-racing-surface"
+                onClick={handleNext}
+                disabled={!nextLesson}
+                className="flex-1 border-racing-border text-racing-silver hover:text-white hover:bg-racing-surface disabled:opacity-50"
               >
                 Siguiente
                 <ChevronRight className="h-4 w-4 ml-1" />
@@ -335,35 +376,25 @@ El trail braking es una técnica avanzada donde el piloto continúa frenando mie
           <div className="racing-card p-6">
             <h3 className="font-orbitron font-bold text-white mb-4">En este Curso</h3>
             <div className="space-y-2">
-              {[
-                { title: 'Introducción al Frenado', completed: true },
-                { title: 'Técnicas de Frenado Avanzado', current: true },
-                { title: 'Práctica en Simulador', completed: false },
-                { title: 'Evaluación Final', completed: false }
-              ].map((item, index) => (
+              {lessons?.map((lessonItem, index) => (
                 <div
-                  key={index}
+                  key={lessonItem.id}
+                  onClick={() => onLessonChange?.(lessonItem.id)}
                   className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors ${
-                    item.current
+                    lessonItem.id === lessonId
                       ? 'bg-racing-accent/20 border border-racing-accent/50'
                       : 'hover:bg-racing-surface'
                   }`}
                 >
                   <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                    item.completed
-                      ? 'bg-green-500'
-                      : item.current
+                    lessonItem.id === lessonId
                       ? 'bg-racing-accent'
                       : 'bg-racing-surface border border-racing-border'
                   }`}>
-                    {item.completed ? (
-                      <CheckCircle className="h-4 w-4 text-white" />
-                    ) : (
-                      <span className="text-xs font-bold">{index + 1}</span>
-                    )}
+                    <span className="text-xs font-bold">{index + 1}</span>
                   </div>
-                  <span className={`text-sm ${item.current ? 'text-white font-medium' : 'text-racing-silver'}`}>
-                    {item.title}
+                  <span className={`text-sm ${lessonItem.id === lessonId ? 'text-white font-medium' : 'text-racing-silver'}`}>
+                    {lessonItem.title}
                   </span>
                 </div>
               ))}

@@ -1,11 +1,11 @@
-
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { Home, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppState } from '@/hooks/useAppState';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useLessons } from '@/hooks/useCourses';
 import DashboardSidebar from './dashboard/DashboardSidebar';
 import CoursesView from './dashboard/CoursesView';
 import LessonViewer from './dashboard/LessonViewer';
@@ -23,17 +23,35 @@ const Dashboard = memo(() => {
     sidebarOpen,
     setCurrentView,
     setSelectedCourse,
+    setSelectedLesson,
     toggleSidebar
   } = useAppState();
 
+  // Fetch lessons for selected course to auto-select first lesson
+  const { data: lessons } = useLessons(selectedCourse || '');
+
+  // Auto-select first lesson when course is selected and lessons are loaded
+  useEffect(() => {
+    if (currentView === 'lesson' && selectedCourse && lessons && lessons.length > 0 && !selectedLesson) {
+      setSelectedLesson(lessons[0].id);
+    }
+  }, [currentView, selectedCourse, lessons, selectedLesson, setSelectedLesson]);
+
   const handleCourseSelect = useCallback((courseId: string) => {
     setSelectedCourse(courseId);
+    setSelectedLesson(null); // Reset lesson selection
     setCurrentView('lesson');
-  }, [setSelectedCourse, setCurrentView]);
+  }, [setSelectedCourse, setSelectedLesson, setCurrentView]);
+
+  const handleLessonChange = useCallback((lessonId: string) => {
+    setSelectedLesson(lessonId);
+  }, [setSelectedLesson]);
 
   const handleLessonBack = useCallback(() => {
     setCurrentView('courses');
-  }, [setCurrentView]);
+    setSelectedCourse(null);
+    setSelectedLesson(null);
+  }, [setCurrentView, setSelectedCourse, setSelectedLesson]);
 
   const handleLessonComplete = useCallback(() => {
     toast({
@@ -72,14 +90,16 @@ const Dashboard = memo(() => {
         return (
           <LessonViewer
             lessonId={selectedLesson || undefined}
+            courseId={selectedCourse || undefined}
             onBack={handleLessonBack}
+            onLessonChange={handleLessonChange}
             onComplete={handleLessonComplete}
           />
         );
       default:
         return <CoursesView onCourseSelect={handleCourseSelect} />;
     }
-  }, [currentView, handleCourseSelect, handleLessonBack, handleLessonComplete, selectedLesson]);
+  }, [currentView, handleCourseSelect, handleLessonBack, handleLessonChange, handleLessonComplete, selectedLesson, selectedCourse]);
 
   // Create a mock user object for the sidebar
   const mockUser = {
