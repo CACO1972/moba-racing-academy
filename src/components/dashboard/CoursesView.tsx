@@ -1,78 +1,57 @@
-
 import React from 'react';
-import { Trophy, Zap, Brain, BarChart3 } from 'lucide-react';
+import { Trophy, Zap, Brain, BarChart3, Loader2 } from 'lucide-react';
 import CoursePreviewCard from '../CoursePreviewCard';
+import { useCourses, useLessons } from '@/hooks/useCourses';
 
 interface CoursesViewProps {
   onCourseSelect: (courseId: string) => void;
 }
 
-const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
-  const courses = [
-    {
-      id: 'karting-basics',
-      title: 'Fundamentos de Karting',
-      description: 'Aprende las bases del karting: técnicas de frenado, trazadas óptimas y posición corporal. Ideal para principiantes que quieren dominar los fundamentos.',
-      level: 'amateur' as const,
-      duration: '4 semanas',
-      lessons: 12,
-      students: 1240,
-      instructor: 'G. Bacigalupo',
-      preview: 'available',
-      price: 'Gratis'
-    },
-    {
-      id: 'circuit-mastery',
-      title: 'Dominio de Circuito',
-      description: 'Técnicas avanzadas para diferentes tipos de circuitos: callejeros, permanentes y mixtos. Aprende a adaptar tu estilo según las condiciones.',
-      level: 'semipro' as const,
-      duration: '6 semanas',
-      lessons: 18,
-      students: 890,
-      instructor: 'G. Bacigalupo',
-      preview: 'available',
-      price: 'US$150'
-    },
-    {
-      id: 'advanced-racing',
-      title: 'Técnicas de Racing Avanzado',
-      description: 'Estrategias de carrera, manejo bajo presión y técnicas de adelantamiento. Para pilotos que buscan el siguiente nivel competitivo.',
-      level: 'pro' as const,
-      duration: '8 semanas',
-      lessons: 24,
-      students: 567,
-      instructor: 'G. Bacigalupo',
-      preview: 'available',
-      price: 'US$200'
-    },
-    {
-      id: 'neurocognitive',
-      title: 'Entrenamiento Neurocognitivo',
-      description: 'Programa personalizado con evaluación previa para mejorar coordinación ojo-mano, memoria muscular, velocidad de reacción y concentración bajo presión.',
-      level: 'pro' as const,
-      duration: '12 semanas',
-      lessons: 36,
-      students: 234,
-      instructor: 'Dr. Performance Team',
-      preview: 'evaluation',
-      price: 'US$100'
-    },
-    {
-      id: 'telemetry-ai',
-      title: 'Telemetría Profesional con IA',
-      description: 'Análisis avanzado de datos con inteligencia artificial. Personalización asistida para optimizar tu rendimiento y ganar esas décimas cruciales.',
-      level: 'pro' as const,
-      duration: '10 semanas',
-      lessons: 30,
-      students: 156,
-      instructor: 'AI Performance Lab',
-      preview: 'demo',
-      price: 'US$150'
-    }
-  ];
+// Map database levels to UI levels and pricing
+const levelMapping: Record<string, { uiLevel: 'amateur' | 'semipro' | 'pro'; price: string; duration: string }> = {
+  amateur: { uiLevel: 'amateur', price: 'Gratis', duration: '4 semanas' },
+  semipro: { uiLevel: 'semipro', price: 'US$150', duration: '6 semanas' },
+  professional: { uiLevel: 'pro', price: 'US$200', duration: '8 semanas' },
+  expert: { uiLevel: 'pro', price: 'US$250', duration: '10 semanas' },
+};
 
-  const featuredCourse = courses[0];
-  const otherCourses = courses.slice(1);
+const CoursesView = ({ onCourseSelect }: CoursesViewProps) => {
+  const { data: courses, isLoading, error } = useCourses();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 text-racing-red animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center text-racing-red py-8">
+        Error al cargar los cursos. Por favor intenta de nuevo.
+      </div>
+    );
+  }
+
+  const mappedCourses = (courses || []).map((course) => {
+    const mapping = levelMapping[course.level] || levelMapping.amateur;
+    return {
+      id: course.id,
+      title: course.title,
+      description: course.description || '',
+      level: mapping.uiLevel,
+      duration: mapping.duration,
+      lessons: 0, // Will be updated when we fetch lessons count
+      students: Math.floor(Math.random() * 1000) + 200, // Placeholder
+      instructor: 'G. Bacigalupo',
+      preview: 'available' as const,
+      price: mapping.price,
+    };
+  });
+
+  const featuredCourse = mappedCourses[0];
+  const otherCourses = mappedCourses.slice(1);
 
   return (
     <div className="space-y-8 animate-fade-in">
